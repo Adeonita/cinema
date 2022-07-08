@@ -13,5 +13,9 @@
             "email": "adeonita.sousa@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.4",
+        "rakit/validation": "^1.4",
+        "bramus/router": "^1.6"
+    }
 }

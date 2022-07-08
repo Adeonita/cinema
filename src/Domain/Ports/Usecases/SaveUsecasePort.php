@@ -1,10 +1,12 @@
 <?php
-namespace App\Domain\Entities\Ports\Usecases;
+namespace App\Domain\Ports\Usecases;
 
-use App\Domain\Entities\BaseEntity;
+use App\Domain\Ports\Repositories\Repository;
+use App\Domain\Ports\Entities\BaseEntity;
 
-interface CreateUsecasePort {
+interface SaveUsecasePort {
     
+    public function __construct(Repository $repository);
     public function execute(BaseEntity $entity);
 
 }

@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Entities\Ports\Usecases;
+namespace App\Domain\Ports\Usecases;
 
 interface DeleteUsecasePort {
 
