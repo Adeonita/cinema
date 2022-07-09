@@ -1,12 +1,12 @@
 <?php
-namespace App\Domain\Usecases\User;
+namespace App\Domain\Usecases\Cine;
 
-use App\Domain\Entities\User;
+use App\Domain\Entities\Cine;
 use App\Domain\Ports\Entities\BaseEntity;
 use App\Domain\Ports\Repositories\Repository;
-use App\Domain\Ports\Usecases\SaveUsecasePort;
+use App\Domain\Ports\Usecases\CreateUsecasePort;
 
-class SaveUserUsecase implements SaveUsecasePort{
+class CreateCineUsecase implements CreateUsecasePort {
 
     private $repository;
 
@@ -15,7 +15,7 @@ class SaveUserUsecase implements SaveUsecasePort{
         $this->repository = $repository;
     }
     
-    public function execute(BaseEntity $entity): User
+    public function execute(BaseEntity $entity): Cine
     {
         $id = $this->repository->create($entity);
         return $this->repository->find($id);

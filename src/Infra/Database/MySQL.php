@@ -37,7 +37,7 @@ class MySQL implements Database {
             return $connection->lastInsertId();
         }
 
-        throw new \Exception("Error while execute create operation");
+        throw new \Exception("Error while execute create operation". implode("<br>", $statement->errorInfo()), 500);
     }
 
     public function update(string $query, array $params = []): bool {

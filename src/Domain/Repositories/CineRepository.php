@@ -32,7 +32,7 @@ class CineRepository implements Repository {
     }
 
     public function find($id): BaseEntity {
-        $result = $this->database->select("SELECT * FROM cine WHERE id = ?", [$id]);
+        $result = $this->database->select("SELECT * FROM cines WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {
             throw new \Exception("Cine not found", 404);
