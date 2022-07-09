@@ -1,6 +1,12 @@
 # Cinema Uneb
 
-  
+## Configurações
+Copiar o arquivo sample.env tornando-o apenas .env e aplicando os valores para as respectivas variáveis:
+
+    DATABASE_HOST=
+    DATABASE_USER=
+    DATABASE_PASSWORD=
+    DATABASE_NAME=
 
 ## Estrutura
 - ### Domain 
