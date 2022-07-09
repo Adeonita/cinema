@@ -37,7 +37,7 @@ class UserRepository implements Repository {
 
     public function delete($id): void
     {
-        
+        $this->database->delete("DELETE FROM users WHERE id = ?", [$id]);
     }
 
     public function update(BaseEntity $entity): bool

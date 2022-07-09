@@ -1,9 +1,30 @@
 <?php
 namespace App\Domain\Entities;
 
-class Shopping {
+use App\Domain\Ports\Entities\BaseEntity;
 
-    public int $id;
-    public string $name;
+class Shopping implements BaseEntity{
+
+    public $id;
+    public $name;
+
+    public function __construct($id = null, $name)
+    {
+        $this->id = $id;
+        $this->name = $name;
+    }
+
+    public function toPersistentArray(): array {
+        return [
+            $this->name,
+        ];
+    }
+
+    public static function fromPersistentObject($shoppingObj): BaseEntity {
+        return new Shopping(
+            $shoppingObj->id,
+            $shoppingObj->name
+        );
+    }
 
 }

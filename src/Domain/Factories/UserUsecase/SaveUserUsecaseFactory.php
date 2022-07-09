@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Factories;
+namespace App\Domain\Factories\UserUsecase;
 
 use App\Domain\Repositories\UserRepository;
 use App\Domain\Usecases\User\SaveUserUsecase;

@@ -4,7 +4,9 @@ namespace App\Infra\Router;
 class Registry {
 
     private $routes = [
-        'post' => ['/user', '\App\Infra\Controllers\UserController@create']
+        'post' => ['/users', '\App\Infra\Controllers\UserController@create'],
+        'get' => ['/users/(\d+)', '\App\Infra\Controllers\UserController@find'],
+        'delete' => ['/users/(\d+)', '\App\Infra\Controllers\UserController@delete']
     ];
 
     public function run() {
