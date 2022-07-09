@@ -22,7 +22,7 @@ class UserValidator {
             );
         }
                 
-        throw new \Exception("Validation error: ". implode(",", $_POST));
+        throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
     }
     
 }

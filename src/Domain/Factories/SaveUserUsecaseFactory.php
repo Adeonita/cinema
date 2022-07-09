@@ -2,7 +2,7 @@
 namespace App\Domain\Factories;
 
 use App\Domain\Repositories\UserRepository;
-use App\Domain\Usecases\SaveUserUsecase;
+use App\Domain\Usecases\User\SaveUserUsecase;
 use App\Infra\Database\MySQL;
 
 class SaveUserUsecaseFactory {

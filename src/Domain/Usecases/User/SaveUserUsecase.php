@@ -1,5 +1,5 @@
 <?php
-namespace App\Domain\Usecases;
+namespace App\Domain\Usecases\User;
 
 use App\Domain\Entities\User;
 use App\Domain\Ports\Entities\BaseEntity;
@@ -8,7 +8,7 @@ use App\Domain\Ports\Usecases\SaveUsecasePort;
 
 class SaveUserUsecase implements SaveUsecasePort{
 
-    private Repository $repository;
+    private $repository;
 
     public function __construct(Repository $repository)
     {

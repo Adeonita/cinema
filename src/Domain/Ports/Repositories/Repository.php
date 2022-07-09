@@ -7,7 +7,7 @@ interface Repository {
 
     public function create(BaseEntity $entity): int;
     public function update(BaseEntity $entity): bool;
-    public function delete(int $id): void;
-    public function find(int $id): BaseEntity;
+    public function delete($id): void;
+    public function find($id): BaseEntity;
 
 }

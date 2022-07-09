@@ -5,14 +5,14 @@ use App\Domain\Ports\Entities\BaseEntity;
 
 class User implements BaseEntity {
 
-    public int $id;
-    public string $firstName;
-    public string $lastName;
-    public string $email;
-    public string $password;
-    public string $created_at;
+    public $id;
+    public $firstName;
+    public $lastName;
+    public $email;
+    public $password;
+    public $created_at;
 
-    public function __construct(int $id = null, string $firstName, string $lastName, string $email, string $password, string $created_at = null)
+    public function __construct($id = null, $firstName, $lastName, $email, $password, $created_at = null)
     {
         $this->id = $id;
         $this->firstName = $firstName;
@@ -31,11 +31,11 @@ class User implements BaseEntity {
         ];
     }
 
-    public static function fromPersistentObject(object $userObj): User {
+    public static function fromPersistentObject($userObj): BaseEntity {
         return new User(
             $userObj->id,
-            $userObj->firstName, 
-            $userObj->lastName, 
+            $userObj->first_name, 
+            $userObj->last_name, 
             $userObj->email, 
             $userObj->password,
             $userObj->created_at

@@ -5,11 +5,10 @@ use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Database\Database;
 use App\Domain\Ports\Entities\BaseEntity;
 use App\Domain\Entities\User;
-use ErrorException;
 
 class UserRepository implements Repository {
 
-    private Database $database;
+    private $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
     public function __construct(Database $database)
@@ -25,7 +24,7 @@ class UserRepository implements Repository {
         );
     }
 
-    public function find(int $id): User
+    public function find($id): BaseEntity
     {
         $result = $this->database->select("SELECT * FROM users WHERE id = ?", [$id]);
         $count = count($result);
@@ -36,7 +35,7 @@ class UserRepository implements Repository {
         return User::fromPersistentObject($result[0]);
     }
 
-    public function delete(int $id): void
+    public function delete($id): void
     {
         
     }

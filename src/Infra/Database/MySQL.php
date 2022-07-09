@@ -2,32 +2,29 @@
 namespace App\Infra\Database;
 
 use App\Domain\Ports\Database\Database;
-use Exception;
-use \PDO;
-use \PDOStatement;
 
 class MySQL implements Database {
 
-    private string $db_name;
-    private string $db_password;
-    private string $db_user;
-    private string $db_host;
+    private $db_name;
+    private $db_password;
+    private $db_user;
+    private $db_host;
 
     public function __construct()
     {
-        $this->db_host = getenv("DATABASE_HOST");
-        $this->db_name = getenv("DATABASE_NAME");
-        $this->db_user = getenv("DATABASE_USER");
-        $this->db_password = getenv("DATABASE_PASSWORD");
+        $this->db_host = $_ENV["DATABASE_HOST"];
+        $this->db_name = $_ENV["DATABASE_NAME"];
+        $this->db_user = $_ENV["DATABASE_USER"];
+        $this->db_password = $_ENV["DATABASE_PASSWORD"];
     }
 
     private function getConnection() {
-        return new PDO("mysql:host=".$this->db_host.";dbname=".$this->db_name, $this->db_user, $this->db_password);
+        return new \PDO("mysql:host=".$this->db_host.";dbname=".$this->db_name, $this->db_user, $this->db_password);
     }
 
-    private function applyBindParams(PDOStatement $statement, $params) {
-        foreach($params as $index => $param_value) {
-            $statement->bindParam($index + 1, $param_value);
+    private function applyBindParams($statement, $params) {
+        foreach($params as $index => $p) {
+            $statement->bindValue($index + 1, $p);
         }
     }
 
@@ -35,11 +32,11 @@ class MySQL implements Database {
         $connection = $this->getConnection();
         $statement = $connection->prepare($query);
         $this->applyBindParams($statement, $params);
-
         $result = $statement->execute();
         if( $result ) {
             return $connection->lastInsertId();
         }
+
         throw new \Exception("Error while execute create operation");
     }
 
@@ -58,7 +55,7 @@ class MySQL implements Database {
         $result = [];
 
         if($statement->execute()) {
-            while($obj = $statement->fetch(PDO::FETCH_OBJ)) {
+            while($obj = $statement->fetch(\PDO::FETCH_OBJ)) {
                 $result[] = $obj;
             }
         }
