@@ -44,7 +44,7 @@ class Film implements BaseEntity{
             $this->category,
             $this->ageRating,
             $this->mainActor,
-            $this->isThreeDimentions,
+            $this->isThreeDimentions ?? 0,
         ];
     }
 
