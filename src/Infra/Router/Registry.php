@@ -23,6 +23,13 @@ $router->get('/shoppings/(\d+)', ShoppingController::class.'@find');
 $router->post('/shoppings', ShoppingController::class.'@create');
 $router->delete('/shoppings/(\d+)', ShoppingController::class.'@delete');
 
+try {
+  $router->run();
+} catch (\Exception $error) {
+  http_response_code($error->getCode());
 
-$router->run();
-
+echo json_encode([
+  'message' => $error->getMessage(),
+  'error_code' => $error->getCode()
+]);
+}
