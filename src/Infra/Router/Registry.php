@@ -2,6 +2,7 @@
 namespace App\Infra\Router;
 
 use App\Infra\Controllers\UserController;
+use App\Infra\Controllers\FilmController;
 use App\Infra\Controllers\CineController;
 use App\Infra\Controllers\ShoppingController;
 
@@ -22,6 +23,8 @@ $router->delete('/cines/(\d+)', CineController::class.'@delete');
 $router->get('/shoppings/(\d+)', ShoppingController::class.'@find');
 $router->post('/shoppings', ShoppingController::class.'@create');
 $router->delete('/shoppings/(\d+)', ShoppingController::class.'@delete');
+
+$router->post('/films', FilmController::class.'@create');
 
 try {
   $router->run();
