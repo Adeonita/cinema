@@ -6,7 +6,7 @@ use App\Infra\Database\MySQL;
 use App\Domain\Repositories\FilmRepository;
 use App\Domain\Usecases\Film\FindFilmUsecase;
 
-class FindFilmUseCaseFactory
+class FindFilmUsecaseFactory
 {
   public static function create(): FindFilmUsecase
   {
