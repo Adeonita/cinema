@@ -17,7 +17,7 @@ class FilmRepository implements Repository {
 
     public function create(BaseEntity $entity): int {
         return $this->database->create(
-            "INSERT INTO films (name, is_three_dimentions, duration) VALUES(?,?,?)",
+            "INSERT INTO films (title,director,duration,category,age_rating,main_actor,is_three_dimentions) VALUES(?,?,?,?,?,?,?)",
             $entity->toPersistentArray()
         );
     }

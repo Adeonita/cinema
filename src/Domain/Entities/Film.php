@@ -5,34 +5,60 @@ use App\Domain\Ports\Entities\BaseEntity;
 
 class Film implements BaseEntity{
 
-    public int $id;
-    public string $name;
-    public bool $isThreeDimentions;
-    public int $duration;
+    public  $id;
+    public $title;
+    public $duration;
+    public $director;
+    public $ageRating;
+    public $mainActor;
+    public $isThreeDimentions;
+    public $category; //(ação, comédia, infantil, suspense ou terror)
 
-    public function __construct($id = null, $name, $isThreeDimentions, $duration)
+    public function __construct(
+        $id = null, 
+        $title,
+        $duration,
+        $director,
+        $ageRating,
+        $mainActor,
+        $isThreeDimentions,
+        $category
+    )
     {
         $this->id = $id;
-        $this->name = $name;
-        $this->isThreeDimentions = $isThreeDimentions;
+        $this->title = $title;
         $this->duration = $duration;
+        $this->director = $director;
+        $this->ageRating = $ageRating;
+        $this->mainActor = $mainActor;
+        $this->isThreeDimentions = $isThreeDimentions;
+        $this->category = $category;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
-            $this->name, 
+            $this->title,
+            $this->director,
+            $this->duration,
+            $this->category,
+            $this->ageRating,
+            $this->mainActor,
             $this->isThreeDimentions,
-            $this->duration
         ];
     }
 
-    public static function fromPersistentObject($cineObj): BaseEntity {
+    public static function fromPersistentObject($filmObj): BaseEntity 
+    {
         return new Film(
-            $cineObj->id, 
-            $cineObj->name, 
-            $cineObj->is_three_dimentions,
-            $cineObj->duration
+            $filmObj->id,
+            $filmObj->title,
+            $filmObj->duration,
+            $filmObj->director,
+            $filmObj->age_rating,
+            $filmObj->main_actor,
+            $filmObj->is_three_dimentions ? true : false,
+            $filmObj->category,
         );
     }
-
 }
