@@ -1,30 +1,22 @@
 <?php
 namespace App\Infra\Router;
 
-class Registry {
+$_POST = json_decode(file_get_contents('php://input'), true);
 
-    private $routes = [
-        // users
-        'post' => ['/users', '\App\Infra\Controllers\UserController@create'],
-        'get' => ['/users/(\d+)', '\App\Infra\Controllers\UserController@find'],
-        'delete' => ['/users/(\d+)', '\App\Infra\Controllers\UserController@delete'],
-        // cines
-        'post' => ['/cines', '\App\Infra\Controllers\CineController@create'],
-        'get' => ['/users/(\d+)', '\App\Infra\Controllers\UserController@find'],
-        'delete' => ['/users/(\d+)', '\App\Infra\Controllers\UserController@delete'],
-        // shoppings
-        'post' => ['/shoppings', '\App\Infra\Controllers\ShoppingController@create'],
-        'get' => ['/shoppings/(\d+)', '\App\Infra\Controllers\ShoppingController@find'],
-        'delete' => ['/shoppings/(\d+)', '\App\Infra\Controllers\ShoppingController@delete']
-    ];
+$router = new \Bramus\Router\Router();
 
-    public function run() {
-        $router = new \Bramus\Router\Router();
-        foreach($this->routes as $method => $function) {
-            $router->$method($function[0], $function[1]);
-        }
-        $router->run();
-    }
+// routes
+$router->get('/users/(\d+)', '\App\Infra\Controllers\UserController@find');
+$router->post('/users', '\App\Infra\Controllers\UserController@create');
+$router->delete('/users', '\App\Infra\Controllers\UserController@delete');
 
-}
+$router->get('/cines/(\d+)', '\App\Infra\Controllers\CineController@find');
+$router->post('/cines', '\App\Infra\Controllers\CineController@create');
+$router->delete('/cines/(\d+)', '\App\Infra\Controllers\CineController@delete');
+
+$router->get('/shoppings/(\d+)', '\App\Infra\Controllers\ShoppingController@find');
+$router->post('/shoppings', '\App\Infra\Controllers\ShoppingController@create');
+$router->delete('/shoppings/(\d+)', '\App\Infra\Controllers\ShoppingController@delete');
+
+$router->run();
 

@@ -3,9 +3,9 @@ namespace App\Domain\Usecases\Cine;
 
 use App\Domain\Entities\Cine;
 use App\Domain\Ports\Repositories\Repository;
-use App\Domain\Ports\Usecases\DeleteUsecasePort;
+use App\Domain\Ports\Usecases\FindUsecasePort;
 
-class FindCineUsecase implements DeleteUsecasePort {
+class FindCineUsecase implements FindUsecasePort {
 
     private $repository;
 
@@ -14,7 +14,7 @@ class FindCineUsecase implements DeleteUsecasePort {
         $this->repository = $repository;
     }
     
-    public function execute($id): Cine
+    public function execute(int $id)
     {
         return $this->repository->find($id);
     }

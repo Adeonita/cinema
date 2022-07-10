@@ -5,7 +5,7 @@ use App\Domain\Repositories\UserRepository;
 use App\Domain\Usecases\User\CreateUserUsecase;
 use App\Infra\Database\MySQL;
 
-class SaveUserUsecaseFactory {
+class CreateUserUsecaseFactory {
 
     public static function create(): CreateUserUsecase {
         $database = new MySQL();
