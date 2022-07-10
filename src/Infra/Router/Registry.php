@@ -24,6 +24,7 @@ $router->get('/shoppings/(\d+)', ShoppingController::class.'@find');
 $router->post('/shoppings', ShoppingController::class.'@create');
 $router->delete('/shoppings/(\d+)', ShoppingController::class.'@delete');
 
+$router->get('/films/(\d+)', FilmController::class.'@find');
 $router->post('/films', FilmController::class.'@create');
 
 try {
