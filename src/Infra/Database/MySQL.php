@@ -18,29 +18,39 @@ class MySQL implements Database {
         $this->db_password = $_ENV["DATABASE_PASSWORD"];
     }
 
-    private function getConnection() {
+    private function getConnection()
+    {
         return new \PDO("mysql:host=".$this->db_host.";dbname=".$this->db_name, $this->db_user, $this->db_password);
     }
 
-    private function applyBindParams($statement, $params) {
+    private function applyBindParams($statement, $params)
+    {
         foreach($params as $index => $p) {
+            if ($p == null) {
+                $p = 0;
+                $statement->bindValue($index + 1, $p, \PDO::PARAM_BOOL);
+            }
+
             $statement->bindValue($index + 1, $p);
         }
     }
 
-    public function create(string $query, array $params = []): int {
+    public function create(string $query, array $params = []): int
+    {
         $connection = $this->getConnection();
         $statement = $connection->prepare($query);
         $this->applyBindParams($statement, $params);
         $result = $statement->execute();
-        if( $result ) {
+        
+        if ($result) {
             return $connection->lastInsertId();
         }
 
         throw new \Exception("Error while execute create operation". implode("<br>", $statement->errorInfo()), 500);
     }
 
-    public function update(string $query, array $params = []): bool {
+    public function update(string $query, array $params = []): bool
+    {
         $connection = $this->getConnection();
         $statement = $connection->prepare($query);
         $this->applyBindParams($statement, $params);
@@ -48,7 +58,8 @@ class MySQL implements Database {
         return $statement->execute();
     }
 
-    public function select(string $query, array $params): array {
+    public function select(string $query, array $params): array
+    {
         $connection = $this->getConnection();
         $statement = $connection->prepare($query);
         $this->applyBindParams($statement, $params);
@@ -64,7 +75,8 @@ class MySQL implements Database {
     }
 
     # Does it make sense?
-    public function delete(string $query, array $params = []): bool {
+    public function delete(string $query, array $params = []): bool
+    {
         $connection = $this->getConnection();
         $statement = $connection->prepare($query);
         $this->applyBindParams($statement, $params);
