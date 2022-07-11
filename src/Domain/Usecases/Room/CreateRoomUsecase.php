@@ -18,8 +18,24 @@ class CreateRoomUsecase implements CreateUsecasePort
 
   public function execute(BaseEntity $entity): Room
   {
+    if ($this->hasRoom($entity->name, $entity->cineId)) {
+      throw new \Exception("Duplicated room", 422);
+    }
+
     $id = $this->repository->create($entity);
 
     return $this->repository->find($id);
+  }
+
+  private function hasRoom($name, $cineId) {
+    $rooms = $this->repository->findBy("rooms", 
+      [
+        "name" => $name,
+        "cine_id" => $cineId
+      ],
+      [Room::class, 'fromArray']
+    );
+
+    return count($rooms) >= 1;
   }
 }
