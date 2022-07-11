@@ -31,6 +31,7 @@ $router->delete('/films/(\d+)', FilmController::class.'@delete');
 
 $router->get('/rooms/(\d+)', RoomController::class.'@find');
 $router->post('/rooms', RoomController::class.'@create');
+$router->delete('/rooms/(\d+)', RoomController::class.'@delete');
 
 try {
   $router->run();
