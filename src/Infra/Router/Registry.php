@@ -5,6 +5,7 @@ use App\Infra\Controllers\UserController;
 use App\Infra\Controllers\FilmController;
 use App\Infra\Controllers\CineController;
 use App\Infra\Controllers\ShoppingController;
+use App\Infra\Controllers\RoomController;
 
 $_POST = json_decode(file_get_contents('php://input'), true);
 
@@ -28,6 +29,7 @@ $router->get('/films/(\d+)', FilmController::class.'@find');
 $router->post('/films', FilmController::class.'@create');
 $router->delete('/films/(\d+)', FilmController::class.'@delete');
 
+$router->post('/rooms', RoomController::class.'@create');
 
 try {
   $router->run();
