@@ -50,4 +50,11 @@ class Room implements BaseEntity {
         );
     }
 
+    public static function fromArray($results) {
+        $rooms = [];
+        foreach($results as $room) {
+            $rooms[] = Room::fromPersistentObject($room);
+        }
+        return $rooms;
+    }
 }
