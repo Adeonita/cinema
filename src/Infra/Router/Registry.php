@@ -29,6 +29,7 @@ $router->get('/films/(\d+)', FilmController::class.'@find');
 $router->post('/films', FilmController::class.'@create');
 $router->delete('/films/(\d+)', FilmController::class.'@delete');
 
+$router->get('/rooms/(\d+)', RoomController::class.'@find');
 $router->post('/rooms', RoomController::class.'@create');
 
 try {
