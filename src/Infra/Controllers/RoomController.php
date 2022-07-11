@@ -19,11 +19,11 @@ class RoomController extends Controller
     return $this->jsonResponse($createdRoom, 201);
   }
 
-  public function find($id)
+  public function find($roomId, $cineId)
   {
     try {
       $usecase = FindRoomUsecaseFactory::create();
-      $roomEntity = $usecase->execute($id);
+      $roomEntity = $usecase->execute($roomId, $cineId);
       
       return $this->jsonResponse($roomEntity);
     } catch (\Exception $e) {
