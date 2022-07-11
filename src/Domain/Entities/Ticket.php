@@ -10,7 +10,7 @@ class Ticket implements BaseEntity{
     public $date;
     public $userId;
     public $isStudent;
-    public $session_id;
+    public $sessionId;
 
     public function __construct($id = null, $price, $date, $userId, $isStudent, $sessionId)
     {

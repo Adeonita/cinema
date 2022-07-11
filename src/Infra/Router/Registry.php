@@ -1,22 +1,41 @@
 <?php
 namespace App\Infra\Router;
 
+use App\Infra\Controllers\UserController;
+use App\Infra\Controllers\FilmController;
+use App\Infra\Controllers\CineController;
+use App\Infra\Controllers\ShoppingController;
+
 $_POST = json_decode(file_get_contents('php://input'), true);
 
 $router = new \Bramus\Router\Router();
 
 // routes
-$router->get('/users/(\d+)', '\App\Infra\Controllers\UserController@find');
-$router->post('/users', '\App\Infra\Controllers\UserController@create');
-$router->delete('/users', '\App\Infra\Controllers\UserController@delete');
+$router->get('/users/(\d+)', UserController::class.'@find');
 
-$router->get('/cines/(\d+)', '\App\Infra\Controllers\CineController@find');
-$router->post('/cines', '\App\Infra\Controllers\CineController@create');
-$router->delete('/cines/(\d+)', '\App\Infra\Controllers\CineController@delete');
+$router->post('/users', UserController::class.'@create');
+$router->delete('/users', UserController::class.'@delete');
 
-$router->get('/shoppings/(\d+)', '\App\Infra\Controllers\ShoppingController@find');
-$router->post('/shoppings', '\App\Infra\Controllers\ShoppingController@create');
-$router->delete('/shoppings/(\d+)', '\App\Infra\Controllers\ShoppingController@delete');
+$router->get('/cines/(\d+)', CineController::class.'@find');
+$router->post('/cines', CineController::class.'@create');
+$router->delete('/cines/(\d+)', CineController::class.'@delete');
 
-$router->run();
+$router->get('/shoppings/(\d+)', ShoppingController::class.'@find');
+$router->post('/shoppings', ShoppingController::class.'@create');
+$router->delete('/shoppings/(\d+)', ShoppingController::class.'@delete');
 
+$router->get('/films/(\d+)', FilmController::class.'@find');
+$router->post('/films', FilmController::class.'@create');
+$router->delete('/films/(\d+)', FilmController::class.'@delete');
+
+
+try {
+  $router->run();
+} catch (\Exception $error) {
+  http_response_code($error->getCode());
+
+echo json_encode([
+  'message' => $error->getMessage(),
+  'error_code' => $error->getCode()
+]);
+}
