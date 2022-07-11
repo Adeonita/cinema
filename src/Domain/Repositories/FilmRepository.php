@@ -6,7 +6,8 @@ use App\Domain\Ports\Database\Database;
 use App\Domain\Ports\Entities\BaseEntity;
 use App\Domain\Ports\Repositories\Repository;
 
-class FilmRepository implements Repository {
+class FilmRepository extends Repository
+{
     private $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
