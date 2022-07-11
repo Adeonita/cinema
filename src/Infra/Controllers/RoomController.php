@@ -31,11 +31,11 @@ class RoomController extends Controller
     }
   }
 
-  public function delete($id)
+  public function delete($roomId, $cineId)
   {
     try {
       $deleteUsecase = DeleteRoomUsecaseFactory::create();
-      $deleteUsecase->execute($id);
+      $deleteUsecase->execute($roomId, $cineId);
 
       return $this->jsonResponse(null, 204);
 

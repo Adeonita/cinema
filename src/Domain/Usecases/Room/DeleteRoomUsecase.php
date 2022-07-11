@@ -3,9 +3,9 @@
 namespace App\Domain\Usecases\Room;
 
 use App\Domain\Ports\Repositories\Repository;
-use App\Domain\Ports\Usecases\DeleteUsecasePort;
+use App\Domain\Ports\Usecases\DeleteByUsecasePort;
 
-class DeleteRoomUsecase implements DeleteUsecasePort
+class DeleteRoomUsecase implements DeleteByUsecasePort
 {
   private $repository;
 
@@ -14,8 +14,14 @@ class DeleteRoomUsecase implements DeleteUsecasePort
     $this->repository = $repository;
   }
 
-  public function execute($id): void
+  public function execute($roomId, $cineId)
   {
-    $this->repository->delete($id);
+    $this->repository->deleteBy(
+      "rooms", 
+      [
+        "id" => $roomId,
+        "cine_id" => $cineId
+      ]
+    );
   }
 }

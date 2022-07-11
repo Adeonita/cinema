@@ -26,4 +26,19 @@ abstract class Repository
         return $callback($this->database->select("$query $queryParams", array_values($params)));
     }
 
+    public function deleteBy($tableName, $params) {
+        $query = "DELETE FROM $tableName WHERE ";
+        $queryParams = "";
+
+        foreach($params as $name => $value) {
+            if(array_key_last($params) == $name) {
+                $queryParams .= $name." = ?";
+            } else {
+                $queryParams .= $name." = ?"." AND ";
+            }
+        }
+
+        $this->database->delete("$query $queryParams", array_values($params));
+    }
+
 }
