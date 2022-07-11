@@ -2,6 +2,7 @@
 namespace App\Infra\Controllers;
 
 use App\Infra\Validators\SessionValidator;
+use App\Domain\Factories\SessionUsecase\FindSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\CreateSessionUsecaseFactory;
 
 class SessionController extends Controller
@@ -14,5 +15,17 @@ class SessionController extends Controller
     $createdRoom = $usecase->execute($roomEntity);
     
     return $this->jsonResponse($createdRoom, 201);
+  }
+
+  public function find($filmId)
+  {
+    try {
+      $usecase = FindSessionUsecaseFactory::create();
+      $filmEntity = $usecase->execute($filmId);
+      
+      return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
   }
 }
