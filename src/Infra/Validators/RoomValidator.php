@@ -12,7 +12,7 @@ class RoomValidator
     $capacity = $_POST['capacity'];
     $price = $_POST['price'];
     $hasIsThreeDimentions = isset($_POST['isThreeDimentions']);
-    $isThreeDimentions = $_POST['isThreeDimentions'];
+    $isThreeDimentions = (int) $_POST['isThreeDimentions'];
 
     $requiredFields = $name && $cineId && $capacity && $price && $hasIsThreeDimentions;
 
