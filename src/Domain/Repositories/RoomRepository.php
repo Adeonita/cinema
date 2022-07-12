@@ -6,9 +6,10 @@ use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Database\Database; 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class CineRepository implements Repository {
+class RoomRepository extends Repository
+{
 
-    private $database;
+    protected $database;
 
     public function __construct(Database $database)
     {
@@ -17,7 +18,7 @@ class CineRepository implements Repository {
 
     public function create(BaseEntity $entity): int {
         return $this->database->create(
-            "INSERT INTO rooms (id, name, capacity, priceCommonDay, priceWeekend, isThreeDimentions, cine_id) VALUES(?,?,?,?,?,?,?)",
+            "INSERT INTO rooms (name, capacity, price, price_weekend, is_three_dimentions, cine_id) VALUES(?,?,?,?,?,?)",
             $entity->toPersistentArray()
         );
     }

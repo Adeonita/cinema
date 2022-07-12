@@ -6,7 +6,8 @@ use App\Domain\Ports\Database\Database;
 use App\Domain\Ports\Entities\BaseEntity;
 use App\Domain\Entities\User;
 
-class UserRepository implements Repository {
+class UserRepository extends Repository
+{
 
     private $database;
 

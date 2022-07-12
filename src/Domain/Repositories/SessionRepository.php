@@ -2,13 +2,14 @@
 namespace App\Domain\Repositories;
 
 use App\Domain\Entities\Session;
-use App\Domain\Ports\Repositories\Repository;
-use App\Domain\Ports\Database\Database; 
+use App\Domain\Ports\Database\Database;
 use App\Domain\Ports\Entities\BaseEntity;
+use App\Domain\Ports\Repositories\Repository;
 
-class SessionRepository implements Repository {
+class SessionRepository extends Repository
+{
 
-    private $database;
+    protected $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
     public function __construct(Database $database)

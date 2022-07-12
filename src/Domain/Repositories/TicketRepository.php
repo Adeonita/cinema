@@ -7,7 +7,8 @@ use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Database\Database; 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class TicketRepository implements Repository {
+class TicketRepository extends Repository
+{
 
     private $database;
 

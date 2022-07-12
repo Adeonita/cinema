@@ -33,8 +33,8 @@ class FilmController extends Controller
   public function delete($id)
   {
     try {
-      $deleteUserCase = DeleteFilmUsecaseFactory::create();
-      $deleteUserCase->execute($id);
+      $deleteUsecase = DeleteFilmUsecaseFactory::create();
+      $deleteUsecase->execute($id);
 
       return $this->jsonResponse("ok", 204);
 

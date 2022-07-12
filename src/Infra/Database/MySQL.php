@@ -26,11 +26,6 @@ class MySQL implements Database {
     private function applyBindParams($statement, $params)
     {
         foreach($params as $index => $p) {
-            if (gettype($p) == 'boolean') {
-                $statement->bindValue($index + 1, $p, \PDO::PARAM_BOOL);
-                return;
-            }
-
             $statement->bindValue($index + 1, $p); 
         }
     }

@@ -6,7 +6,8 @@ use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Database\Database; 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class CineRepository implements Repository {
+class CineRepository extends Repository
+{
 
     private $database;
 
