@@ -2,10 +2,11 @@
 
 namespace App\Domain\Usecases\Session;
 
+use App\Domain\Entities\Session;
 use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Usecases\FindUsecasePort;
 
-class FindSessionUsecase implements FindUsecasePort
+class FindSessionByFilmUsecase implements FindUsecasePort
 {
   private $repository;
 
@@ -14,8 +15,12 @@ class FindSessionUsecase implements FindUsecasePort
     $this->repository = $repository;
   }
   
-  public function execute($id)
+  public function execute($filmId)
   {
-    return $this->repository->find($id);
+    return $this->repository->findBy(
+      'sessions', 
+      ['film_id' => $filmId],  
+      [Session::class, 'fromArray']
+    );
   }
 }
