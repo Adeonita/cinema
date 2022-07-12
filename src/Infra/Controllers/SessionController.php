@@ -5,6 +5,7 @@ use App\Infra\Validators\SessionValidator;
 use App\Domain\Factories\SessionUsecase\FindSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\CreateSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\DeleteSessionUsecaseFactory;
+use App\Domain\Factories\SessionUsecase\FindSessionByFilmUsecaseFactory;
 
 class SessionController extends Controller
 {
@@ -18,11 +19,23 @@ class SessionController extends Controller
     return $this->jsonResponse($createdRoom, 201);
   }
 
-  public function find($filmId)
+  public function findByFilm($filmId)
+  {
+    try {
+      $usecase = FindSessionByFilmUsecaseFactory::create();
+      $filmEntity = $usecase->execute($filmId);
+      
+      return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
+  }
+
+  public function find($id)
   {
     try {
       $usecase = FindSessionUsecaseFactory::create();
-      $filmEntity = $usecase->execute($filmId);
+      $filmEntity = $usecase->execute($id);
       
       return $this->jsonResponse($filmEntity);
     } catch (\Exception $e) {
