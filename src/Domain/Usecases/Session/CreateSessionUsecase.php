@@ -64,9 +64,13 @@ class CreateSessionUsecase
 
   private function canCreate($entity)
   {
-    $this->hasFilm($entity->filmId);
+    $film = $this->hasFilm($entity->filmId);
 
-    $this->hasRoom($entity->roomId);
+    $room = $this->hasRoom($entity->roomId);
+
+    if ($film->isThreeDimentions !== $room->isThreeDimentions) {
+      throw new \Exception('Movie and room types are incompatible', 422);
+    }
 
     $session = $this->duplicatedSession($entity);
 
