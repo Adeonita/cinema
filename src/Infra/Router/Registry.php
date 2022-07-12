@@ -5,6 +5,7 @@ use App\Infra\Controllers\UserController;
 use App\Infra\Controllers\FilmController;
 use App\Infra\Controllers\CineController;
 use App\Infra\Controllers\RoomController;
+use App\Infra\Controllers\TicketController;
 use App\Infra\Controllers\SessionController;
 use App\Infra\Controllers\ShoppingController;
 
@@ -36,6 +37,9 @@ $router->delete('/rooms/(\d+)/cine/(\d+)', RoomController::class.'@delete');
 $router->post('/sessions', SessionController::class.'@create');
 $router->get('/sessions/films/(\d+)', SessionController::class.'@find');
 $router->delete('/sessions/(\d+)', SessionController::class.'@delete');
+
+$router->post('/ticket', TicketController::class.'@create');
+
 
 try {
   $router->run();
