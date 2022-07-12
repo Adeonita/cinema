@@ -2,28 +2,29 @@
 namespace App\Infra\Validators;
 
 use App\Domain\Entities\Ticket;
+use App\Domain\Usecases\Session\FindSessionUsecase;
+use App\Domain\Factories\SessionUsecase\FindSessionUsecaseFactory;
 
 class TicketValidator
 {
 
   public function validateCreate() {
     $isStudent = $_POST['isStudent'];
+    $userId = $_POST['userId'];
+    $sessionId = $_POST['sessionId'];
 
-    $session = [
-      'roomId' => $_POST['session']['roomId'],
-      'filmId' => $_POST['session']['filmId'],
-      'dateTime' => $_POST['session']['dateTime'],
-    ];
+    $requiredFields = $isStudent && $sessionId && $userId;
 
-    $user = [
-      'email' => $_POST['user']['email'],
-      'password' => $_POST['user']['password'],
-    ];  
-
-    $requiredFields = $isStudent && $session && $user;
+    //chamar o useCase da sessão para pegar a data
+    //calcular o valor do ingresso checando se é fim de semana
+    // e se é meia entrada
 
 
     if ($requiredFields) {
+      $sessionFactory = new FindSessionUsecaseFactory();
+      $sessionUsecase = $sessionFactory->create();
+      $sessionUsecase->execute();
+
       echo 'ok'; exit;
         // return new Ticket(
         //     null,
