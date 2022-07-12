@@ -14,7 +14,7 @@ class FilmValidator {
     $ageRating = $_POST['ageRating'];
     $mainActor = $_POST['mainActor'];
     $hasIsThreeDimentions = isset($_POST['isThreeDimentions']);
-    $isThreeDimentions = $_POST['is_three_dimentions'];
+    $isThreeDimentions = $_POST['isThreeDimentions'];
 
     $requiredFileds = $title && $duration && $director && 
       $ageRating && $mainActor && $category && $hasIsThreeDimentions;
