@@ -2,20 +2,25 @@
 namespace App\Infra\Controllers;
 
 use App\Infra\Validators\TicketValidator;
+use App\Domain\Factories\TicketUsecase\BuyTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\FindTicketUsecaseFactory;
-use App\Domain\Factories\TicketUsecase\CreateTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketUsecaseFactory;
-use App\Domain\Factories\TicketUsecase\DeleteTicketByUserUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\FindTicketByUserUsecaseFactory;
+use App\Domain\Factories\TicketUsecase\DeleteTicketByUserUsecaseFactory;
 
 class TicketController extends Controller
 {
   public function create()
   {
     $validator = new TicketValidator();
-    $ticketEntity = $validator->validateCreate();
-    $usecase = CreateTicketUsecaseFactory::create();
-    $createdTicket = $usecase->execute($ticketEntity);
+    $params = $validator->validateCreate();
+
+    $isStudent = $params['isStudent'];
+    $userId = $params['userId'];
+    $sessionId = $params['sessionId'];
+
+    $usecase = BuyTicketUsecaseFactory::create();
+    $createdTicket = $usecase->execute($isStudent, $userId, $sessionId);
 
     return $this->jsonResponse($createdTicket, 201);
   }
