@@ -2,6 +2,7 @@
 namespace App\Infra\Controllers;
 
 use App\Infra\Validators\TicketValidator;
+use App\Domain\Factories\TicketUsecase\FindTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\CreateTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketByUserUsecaseFactory;
@@ -16,6 +17,18 @@ class TicketController extends Controller
     $createdTicket = $usecase->execute($ticketEntity);
 
     return $this->jsonResponse($createdTicket, 201);
+  }
+
+  public function find($ticketId)
+  {
+    try {
+      $usecase = FindTicketUsecaseFactory::create();
+      $filmEntity = $usecase->execute($ticketId);
+      
+      return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
   }
 
   public function deleteByUser($ticketId, $userId)

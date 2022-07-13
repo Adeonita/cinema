@@ -41,6 +41,7 @@ $router->get('/sessions/films/(\d+)', SessionController::class.'@findByFilm');
 $router->delete('/sessions/(\d+)', SessionController::class.'@delete');
 
 $router->post('/tickets', TicketController::class.'@create');
+$router->get('/tickets/(\d+)', TicketController::class.'@find');
 $router->delete('/tickets/(\d+)/user/(\d+)', TicketController::class.'@deleteByUser');
 $router->delete('/tickets/(\d+)', TicketController::class.'@delete');
 
