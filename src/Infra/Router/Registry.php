@@ -40,8 +40,8 @@ $router->get('/sessions/(\d+)', SessionController::class.'@find');
 $router->get('/sessions/films/(\d+)', SessionController::class.'@findByFilm');
 $router->delete('/sessions/(\d+)', SessionController::class.'@delete');
 
-$router->post('/ticket', TicketController::class.'@create');
-
+$router->post('/tickets', TicketController::class.'@create');
+$router->delete('/tickets/(\d+)/user/(\d+)', TicketController::class.'@deleteByUser');
 
 try {
   $router->run();

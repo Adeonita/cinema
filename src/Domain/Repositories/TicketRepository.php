@@ -10,7 +10,7 @@ use App\Domain\Ports\Entities\BaseEntity;
 class TicketRepository extends Repository
 {
 
-    private $database;
+    protected $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
     public function __construct(Database $database)

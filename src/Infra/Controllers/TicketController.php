@@ -3,6 +3,7 @@ namespace App\Infra\Controllers;
 
 use App\Infra\Validators\TicketValidator;
 use App\Domain\Factories\TicketUsecase\CreateTicketUsecaseFactory;
+use App\Domain\Factories\TicketUsecase\DeleteTicketByUserUsecaseFactory;
 
 class TicketController extends Controller
 {
@@ -14,5 +15,18 @@ class TicketController extends Controller
     $createdTicket = $usecase->execute($ticketEntity);
 
     return $this->jsonResponse($createdTicket, 201);
+  }
+
+  public function deleteByUser($ticketId, $userId)
+  {
+    try {
+      $deleteUsecase = DeleteTicketByUserUsecaseFactory::create();
+      $deleteUsecase->execute($ticketId, $userId);
+
+      return $this->jsonResponse(null, 204);
+
+    } catch(\Exception $e) {
+      return $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
   }
 }
