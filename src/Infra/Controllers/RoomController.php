@@ -6,6 +6,7 @@ use App\Infra\Validators\RoomValidator;
 use App\Domain\Factories\RoomUsecase\FindRoomUsecaseFactory;
 use App\Domain\Factories\RoomUsecase\CreateRoomUsecaseFactory;
 use App\Domain\Factories\RoomUsecase\DeleteRoomUsecaseFactory;
+use App\Domain\Factories\RoomUsecase\FindRoomByCineUsecaseFactory;
 
 class RoomController extends Controller
 {
@@ -19,10 +20,22 @@ class RoomController extends Controller
     return $this->jsonResponse($createdRoom, 201);
   }
 
-  public function find($roomId, $cineId)
+  public function find($roomId)
   {
     try {
       $usecase = FindRoomUsecaseFactory::create();
+      $roomEntity = $usecase->execute($roomId);
+      
+      return $this->jsonResponse($roomEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
+  }
+
+  public function findByCine($roomId, $cineId)
+  {
+    try {
+      $usecase = FindRoomByCineUsecaseFactory::create();
       $roomEntity = $usecase->execute($roomId, $cineId);
       
       return $this->jsonResponse($roomEntity);

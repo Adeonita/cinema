@@ -4,9 +4,9 @@ namespace App\Domain\Usecases\Room;
 
 use App\Domain\Entities\Room;
 use App\Domain\Ports\Repositories\Repository;
-use App\Domain\Ports\Usecases\FindByUsecasePort;
+use App\Domain\Ports\Usecases\FindUsecasePort;
 
-class FindRoomUsecase implements FindByUsecasePort
+class FindRoomUsecase implements FindUsecasePort
 {
   private $repository;
 
@@ -16,17 +16,8 @@ class FindRoomUsecase implements FindByUsecasePort
   }
 
 
-  public function execute($roomId, $cineId): ?Room
+  public function execute($roomId): ?Room
   {
-    $rooms = $this->repository->findBy(
-      "rooms", 
-      [
-        "id" => $roomId,
-        "cine_id" => $cineId
-      ],
-      [Room::class, 'fromArray']
-    );
-
-    return $rooms[0];
+    return $this->repository->find($roomId);
   }
 }
