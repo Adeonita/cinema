@@ -43,4 +43,13 @@ class TicketRepository extends Repository
         return Ticket::fromPersistentObject($result[0]);
     }
 
+    public function getAmount($roomId)
+    {
+        $result = $this->database->select(
+            'SELECT COUNT(*) as total FROM tickets where room_id = ?', [$roomId]
+        );
+        
+        return (int) $result[0]->total;
+    }
+
 }
