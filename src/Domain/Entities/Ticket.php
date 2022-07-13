@@ -8,47 +8,51 @@ class Ticket implements BaseEntity{
 
     public $id;
     public $price = 30;
-    public $date;
+    public $dateTime;
     public $userId;
     public $isStudent;
     public $sessionId;
     public $roomId;
     public $isThreeDimentions;
+    public $deletedAt;
 
-    public function __construct($id = null, $date, $userId, $isStudent, $sessionId, $roomId, $isThreeDimentions)
+    public function __construct($id = null, $dateTime, $userId, $isStudent, $sessionId, $roomId, $isThreeDimentions)
     {
         $this->id = $id;
-        $this->date = $date;
+        $this->dateTime = $dateTime;
         $this->userId = $userId;
         $this->isStudent = $isStudent;
         $this->sessionId = $sessionId;
         $this->roomId = $roomId;
         $this->isThreeDimentions = $isThreeDimentions;
         $this->price = $this->calculatePrice();
+        $this->deletedAt = null;
     }
 
     public function toPersistentArray(): array {
         return [
             $this->price,
-            $this->date,
+            $this->dateTime,
             $this->userId,
             $this->isStudent,
             $this->sessionId,
             $this->roomId,
-            $this->isThreeDimentions
+            $this->isThreeDimentions,
+            $this->deletedAt,
         ];
     }
 
     public static function fromPersistentObject($ticketObj): BaseEntity {
         return new Ticket(
             $ticketObj->id,
-            $ticketObj->price,
-            $ticketObj->date,
+            $ticketObj->date_time,
             $ticketObj->user_id,
             $ticketObj->is_student ? true : false,
             $ticketObj->session_id,
             $ticketObj->room_id,
-            $ticketObj->is_three_dimentions ? true : false
+            $ticketObj->is_three_dimentions ? true : false,
+            $ticketObj->price,
+            $ticketObj->deletedAt
         );
     }
 
@@ -56,7 +60,7 @@ class Ticket implements BaseEntity{
     {
         ini_set('date.timezone', 'America/Sao_Paulo');
 
-        $date = new DateTime($this->date);
+        $date = new DateTime($this->dateTime);
         $formatDate = $date->format('Y-m-d');
         $day = date('D', strtotime($formatDate));
 
@@ -75,7 +79,6 @@ class Ticket implements BaseEntity{
         $isWeekend = $this->isWeekend();
         $isThreeDimentions = $this->isThreeDimentions;
         $isStudent = $this->isStudent;
-
 
         $price = $this->price;
 

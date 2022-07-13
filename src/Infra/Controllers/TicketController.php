@@ -9,6 +9,10 @@ class TicketController extends Controller
   public function create()
   {
     $validator = new TicketValidator();
-    $validator->validateCreate();
+    $ticketEntity = $validator->validateCreate();
+    $usecase = CreateTicketUsecaseFactory::create();
+    $createdTicket = $usecase->execute($ticketEntity);
+
+    return $this->jsonResponse($createdTicket, 201);
   }
 }

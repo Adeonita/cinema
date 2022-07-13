@@ -20,7 +20,7 @@ class TicketRepository extends Repository
 
     public function create(BaseEntity $entity): int {
         return $this->database->create(
-            "INSERT INTO tickets (price, date, userId, isStudent, sessionId) VALUES(?,?,?,?,?)",
+            "INSERT INTO tickets (price, date_time, user_id, is_student, session_id, room_id, is_three_dimentions, deleted_at) VALUES(?,?,?,?,?,?,?,?)",
             $entity->toPersistentArray()
         );
     }
