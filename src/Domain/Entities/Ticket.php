@@ -56,6 +56,17 @@ class Ticket implements BaseEntity{
         );
     }
 
+    public static function fromArray($results)
+    {
+        $tickets = [];
+
+        foreach($results as $ticket) {
+            $tickets[] = Ticket::fromPersistentObject($ticket);
+        }
+        
+        return $tickets;
+    }
+
     private function isWeekend()
     {
         ini_set('date.timezone', 'America/Sao_Paulo');

@@ -6,6 +6,7 @@ use App\Domain\Factories\TicketUsecase\FindTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\CreateTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketByUserUsecaseFactory;
+use App\Domain\Factories\TicketUsecase\FindTicketByUserUsecaseFactory;
 
 class TicketController extends Controller
 {
@@ -24,6 +25,18 @@ class TicketController extends Controller
     try {
       $usecase = FindTicketUsecaseFactory::create();
       $filmEntity = $usecase->execute($ticketId);
+      
+      return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
+  }
+
+  public function findByUser($ticketId, $userId)
+  {
+    try {
+      $usecase = FindTicketByUserUsecaseFactory::create();
+      $filmEntity = $usecase->execute($ticketId, $userId);
       
       return $this->jsonResponse($filmEntity);
     } catch (\Exception $e) {
