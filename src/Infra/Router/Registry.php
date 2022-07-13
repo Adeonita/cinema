@@ -37,6 +37,7 @@ $router->delete('/rooms/(\d+)/cine/(\d+)', RoomController::class.'@delete');
 
 $router->post('/sessions', SessionController::class.'@create');
 $router->get('/sessions/(\d+)', SessionController::class.'@find');
+$router->get('/sessions/{date}', SessionController::class.'@getByDate');
 $router->get('/sessions/films/(\d+)', SessionController::class.'@findByFilm');
 $router->delete('/sessions/(\d+)', SessionController::class.'@delete');
 

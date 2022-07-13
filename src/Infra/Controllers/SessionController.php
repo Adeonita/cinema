@@ -6,6 +6,7 @@ use App\Domain\Factories\SessionUsecase\FindSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\CreateSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\DeleteSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\FindSessionByFilmUsecaseFactory;
+use App\Domain\Factories\SessionUsecase\FindSessionByDateUsecaseFactory;
 
 class SessionController extends Controller
 {
@@ -54,5 +55,17 @@ class SessionController extends Controller
     } catch(\Exception $e) {
       return $this->jsonResponse($e->getMessage(), $e->getCode());
     }
+  }
+
+  public function getByDate($date)
+  {
+    try {
+      $usecase = FindSessionByDateUsecaseFactory::create();
+      $filmEntity = $usecase->execute($date);
+      
+      return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    } 
   }
 }
