@@ -52,4 +52,12 @@ class TicketRepository extends Repository
         return (int) $result[0]->total;
     }
 
+    public function getAmountBySessionDate($date)
+    {
+        $result = $this->database->select(
+            'SELECT COUNT(*) as total FROM tickets WHERE date_time = ?', [$date]
+        );
+
+        return (int) $result[0]->total;
+    }
 }

@@ -42,7 +42,7 @@ class SessionRepository extends Repository
         return Session::fromPersistentObject($result[0]);
     }
 
-    public function findByDate($date)
+    public function findWithRoomAndFilmByDate($date)
     {
         $query = "SELECT
         sessions.id as id,
@@ -54,7 +54,6 @@ class SessionRepository extends Repository
         INNER JOIN rooms on rooms.id = sessions.room_id
         WHERE date_time LIKE ?";
 
-        // $result = $this->database->select("SELECT * FROM sessions where date_time like ?", ["%$date%"]);
         $result = $this->database->select($query, ["%$date%"]);
 
         $count = count($result);
@@ -65,5 +64,48 @@ class SessionRepository extends Repository
 
         return $result;
         // return Session::fromArray($result);
+    }
+
+    public function findByDate($date)
+    {
+        $result = $this->database->select("SELECT * FROM sessions where date_time like ?", ["%$date%"]);
+        $count = count($result);
+        
+        if ($count <= 0) {
+            throw new \Exception("Session not found", 404);
+        }
+
+        return Session::fromArray($result);
+    }
+
+    public function findByDateAndFilmName($filmName, $date)
+    {
+        $query = "SELECT
+        sessions.id as id,
+        sessions.date_time as dia,
+        films.title as filme
+        FROM sessions 
+        INNER JOIN films on films.id = sessions.film_id
+        WHERE date_time LIKE ? AND films.title = ?";
+
+        $result = $this->database->select($query, ["%$date%"]);
+
+        $count = count($result);
+        
+        if ($count <= 0) {
+            throw new \Exception("Session not found", 404);
+        }
+
+        return $result;
+        // return Session::fromArray($result);
+    }
+
+    public function getCapacityFromSession()
+    {
+        $query = 'SELECT rooms.capacity as total
+        FROM sessions
+        INNER JOIN rooms on sessions.room_id = rooms.id
+        WHERE date_time = ?';
+
     }
 }

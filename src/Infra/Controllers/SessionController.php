@@ -7,6 +7,8 @@ use App\Domain\Factories\SessionUsecase\CreateSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\DeleteSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\FindSessionByFilmUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\FindSessionByDateUsecaseFactory;
+use App\Domain\Usecases\Ticket\HasTicketUsecase;
+use App\Domain\Factories\TicketUsecase\HasTicketUsecaseFactory;
 
 class SessionController extends Controller
 {
@@ -64,6 +66,18 @@ class SessionController extends Controller
       $filmEntity = $usecase->execute($date);
       
       return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    } 
+  }
+
+  public function hasTicket($filmName, $date)
+  {
+    try {
+      $usecase = HasTicketUsecaseFactory::create();
+      $ticketEntity = $usecase->execute($filmName,$date);
+      
+      return $this->jsonResponse($ticketEntity);
     } catch (\Exception $e) {
       $this->jsonResponse($e->getMessage(), $e->getCode());
     } 

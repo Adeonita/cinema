@@ -38,9 +38,14 @@ $router->delete('/rooms/(\d+)/cine/(\d+)', RoomController::class.'@delete');
 
 $router->post('/sessions', SessionController::class.'@create');
 $router->get('/sessions/(\d+)', SessionController::class.'@find');
-$router->get('/sessions/{date}', SessionController::class.'@getByDate');
+// $router->get('/sessions/{date}', SessionController::class.'@getByDate');
+$router->get('/sessions/(\d{4}-\d{2}-\d{2})', SessionController::class.'@getByDate');
+
 $router->get('/sessions/films/(\d+)', SessionController::class.'@findByFilm');
 $router->delete('/sessions/(\d+)', SessionController::class.'@delete');
+$router->get('/sessions/{where}/(\d{4}-\d{2}-\d{2})', SessionController::class.'@hasTicket');
+
+// $router->get('/sessions/{date}/hasTicket', SessionController::class.'@hasTicket');
 
 $router->post('/tickets', TicketController::class.'@create');
 $router->get('/tickets/(\d+)', TicketController::class.'@find');
