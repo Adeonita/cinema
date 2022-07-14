@@ -1,35 +1,24 @@
 <?php
 namespace App\Infra\Validators;
 
-use App\Domain\Entities\Ticket;
-use App\Domain\Usecases\Session\FindSessionUsecase;
-use App\Domain\Factories\SessionUsecase\FindSessionUsecaseFactory;
 
 class TicketValidator
 {
-
   public function validateCreate() {
-    $isStudent = $_POST['isStudent'];
+    $hasIsStudent = isset($_POST['isStudent']);
     $userId = $_POST['userId'];
     $sessionId = $_POST['sessionId'];
 
-    $requiredFields = $isStudent && $sessionId && $userId;
-
-    //chamar o useCase da sessão para pegar a data
-    //calcular o valor do ingresso checando se é fim de semana
-    // e se é meia entrada
-
+    $requiredFields = $hasIsStudent && $sessionId && $userId;
 
     if ($requiredFields) {
-      $sessionFactory = new FindSessionUsecaseFactory();
-      $sessionUsecase = $sessionFactory->create();
-      $sessionUsecase->execute();
-
-      echo 'ok'; exit;
-        // return new Ticket(
-        //     null,
-        //     
-        // );
+      $isStudent = (int) $_POST['isStudent'];
+      
+      return [
+        'isStudent' => $isStudent,
+        'userId' => $userId, 
+        'sessionId' => $sessionId
+      ];
     }
             
     throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);

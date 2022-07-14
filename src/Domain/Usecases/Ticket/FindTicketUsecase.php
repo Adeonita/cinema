@@ -1,12 +1,11 @@
 <?php
+namespace App\Domain\Usecases\Ticket;
 
-namespace App\Domain\Usecases\Room;
-
-use App\Domain\Entities\Room;
+use App\Domain\Entities\Ticket;
 use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Usecases\FindUsecasePort;
 
-class FindRoomUsecase implements FindUsecasePort
+class FindTicketUsecase implements FindUsecasePort
 {
   private $repository;
 
@@ -14,10 +13,9 @@ class FindRoomUsecase implements FindUsecasePort
   {
     $this->repository = $repository;
   }
-
-
-  public function execute($roomId): ?Room
-  {
-    return $this->repository->find($roomId);
+  
+  public function execute($ticketId): Ticket
+  {    
+    return $this->repository->find($ticketId);
   }
 }

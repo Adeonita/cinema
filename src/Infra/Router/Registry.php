@@ -30,7 +30,8 @@ $router->get('/films/(\d+)', FilmController::class.'@find');
 $router->post('/films', FilmController::class.'@create');
 $router->delete('/films/(\d+)', FilmController::class.'@delete');
 
-$router->get('/rooms/(\d+)/cine/(\d+)', RoomController::class.'@find');
+$router->get('/rooms/(\d+)', RoomController::class.'@find');
+$router->get('/rooms/(\d+)/cine/(\d+)', RoomController::class.'@findByCine');
 $router->post('/rooms', RoomController::class.'@create');
 $router->delete('/rooms/(\d+)/cine/(\d+)', RoomController::class.'@delete');
 
@@ -39,8 +40,11 @@ $router->get('/sessions/(\d+)', SessionController::class.'@find');
 $router->get('/sessions/films/(\d+)', SessionController::class.'@findByFilm');
 $router->delete('/sessions/(\d+)', SessionController::class.'@delete');
 
-$router->post('/ticket', TicketController::class.'@create');
-
+$router->post('/tickets', TicketController::class.'@create');
+$router->get('/tickets/(\d+)', TicketController::class.'@find');
+$router->get('/tickets/(\d+)/user/(\d+)', TicketController::class.'@findByUser');
+$router->delete('/tickets/(\d+)/user/(\d+)', TicketController::class.'@deleteByUser');
+$router->delete('/tickets/(\d+)', TicketController::class.'@delete');
 
 try {
   $router->run();
