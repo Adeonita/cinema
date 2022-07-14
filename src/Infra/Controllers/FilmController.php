@@ -5,6 +5,7 @@ use App\Infra\Validators\FilmValidator;
 use App\Domain\Factories\FilmUsecase\FindFilmUsecaseFactory;
 use App\Domain\Factories\FilmUsecase\CreateFilmUsecaseFactory;
 use App\Domain\Factories\FilmUsecase\DeleteFilmUsecaseFactory;
+use App\Domain\Factories\FilmUsecase\FindFilmByDateUsecaseFactory;
 
 class FilmController extends Controller
 {
@@ -40,6 +41,18 @@ class FilmController extends Controller
 
     } catch(\Exception $e) {
       return $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
+  }
+
+  public function findByDate($date)
+  {
+    try {
+      $findUsecase = FindFilmByDateUsecaseFactory::create();
+      $filmEntity = $findUsecase->execute($date);
+
+      return $this->jsonResponse($filmEntity, 200);
+    } catch(\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
     }
   }
 }

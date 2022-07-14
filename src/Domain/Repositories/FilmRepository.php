@@ -40,4 +40,29 @@ class FilmRepository extends Repository
 
         return Film::fromPersistentObject($result[0]);
     }
+
+    public function findByDate($date)
+    {
+        $query = "SELECT 
+            films.title,
+            films.duration,
+            films.director,
+            films.age_rating,
+            films.main_actor,
+            films.is_three_dimentions,
+            films.category
+        FROM sessions 
+        INNER JOIN films on films.id = sessions.film_id
+        WHERE date_time like ?";
+
+        $result = $this->database->select($query, ["%$date%"]);
+
+        $count = count($result);
+        
+        if ($count <= 0) {
+            throw new \Exception("Session not found", 404);
+        }
+
+        return $result;
+    }
 }
