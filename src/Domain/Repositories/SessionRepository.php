@@ -42,4 +42,28 @@ class SessionRepository extends Repository
         return Session::fromPersistentObject($result[0]);
     }
 
+    public function findByDate($date)
+    {
+        $query = "SELECT
+        sessions.id as id,
+        sessions.date_time as dia,
+        rooms.name as sala,
+        films.title as filme
+        FROM sessions 
+        INNER JOIN films on films.id = sessions.film_id
+        INNER JOIN rooms on rooms.id = sessions.room_id
+        WHERE date_time LIKE ?";
+
+        // $result = $this->database->select("SELECT * FROM sessions where date_time like ?", ["%$date%"]);
+        $result = $this->database->select($query, ["%$date%"]);
+
+        $count = count($result);
+        
+        if ($count <= 0) {
+            throw new \Exception("Session not found", 404);
+        }
+
+        return $result;
+        // return Session::fromArray($result);
+    }
 }
