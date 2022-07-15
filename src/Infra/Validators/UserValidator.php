@@ -27,4 +27,25 @@ class UserValidator
         throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
     }
     
+    public function validateUpdate() {
+        $params = json_decode(file_get_contents("php://input"));
+        
+        if(
+            $params->id &&
+            $params->firstName &&
+            $params->lastName &&
+            $params->email &&
+            $params->password
+        ) {
+            return new User(
+                $params->id,
+                $params->firstName,
+                $params->lastName,
+                $params->email,
+                $params->password
+            );
+        }
+                
+        throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
+      }
 }

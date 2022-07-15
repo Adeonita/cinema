@@ -8,7 +8,7 @@ use App\Domain\Usecases\Session\FindSessionUsecase;
 
 class FindSessionUsecaseFactory
 {
-  public function create()
+  public static function create()
   {
     $database = new MYSQL();
     $sessionRepository = new SessionRepository($database);

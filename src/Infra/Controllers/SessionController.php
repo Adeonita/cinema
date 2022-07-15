@@ -7,6 +7,8 @@ use App\Domain\Factories\SessionUsecase\CreateSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\DeleteSessionUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\FindSessionByFilmUsecaseFactory;
 use App\Domain\Factories\SessionUsecase\FindSessionByDateUsecaseFactory;
+use App\Domain\Factories\SessionUsecase\CreateFindAvailableTicketsUsecaseFactory;
+use App\Domain\Factories\SessionUsecase\UpdateSessionUsecaseFactory;
 
 class SessionController extends Controller
 {
@@ -67,5 +69,31 @@ class SessionController extends Controller
     } catch (\Exception $e) {
       $this->jsonResponse($e->getMessage(), $e->getCode());
     } 
+  }
+
+  public function findAvailableTickets() {
+    try {
+      $usecase = CreateFindAvailableTicketsUsecaseFactory::create();
+      $validator = new SessionValidator();
+      $payload = $validator->validateFindTickets();
+      $availableTickets = $usecase->execute($payload->filmName, $payload->date);
+
+      return $this->jsonResponse($availableTickets);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    } 
+  }
+
+  public function update()
+  {
+      try {
+          $validator = new SessionValidator();
+          $usecase = UpdateSessionUsecaseFactory::create();
+          $updated = $usecase->execute($validator->validateUpdate());
+
+          return $this->jsonResponse($updated);
+      } catch(\Exception $e) {
+          return $this->jsonResponse($e->getMessage(), $e->getCode());
+      }
   }
 }

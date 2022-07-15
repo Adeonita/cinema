@@ -26,7 +26,8 @@ class RoomRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE rooms SET name=?, capacity=?, is_three_dimentions=?, cine_id=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
     public function delete($id): void

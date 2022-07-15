@@ -6,6 +6,7 @@ use App\Domain\Factories\FilmUsecase\FindFilmUsecaseFactory;
 use App\Domain\Factories\FilmUsecase\CreateFilmUsecaseFactory;
 use App\Domain\Factories\FilmUsecase\DeleteFilmUsecaseFactory;
 use App\Domain\Factories\FilmUsecase\FindFilmByDateUsecaseFactory;
+use App\Domain\Factories\FilmUsecase\UpdateFilmUsecaseFactory;
 
 class FilmController extends Controller
 {
@@ -54,5 +55,18 @@ class FilmController extends Controller
     } catch(\Exception $e) {
       $this->jsonResponse($e->getMessage(), $e->getCode());
     }
+  }
+
+  public function update()
+  {
+      try {
+          $validator = new FilmValidator();
+          $usecase = UpdateFilmUsecaseFactory::create();
+          $updated = $usecase->execute($validator->validateUpdate());
+
+          return $this->jsonResponse($updated);
+      } catch(\Exception $e) {
+          return $this->jsonResponse($e->getMessage(), $e->getCode());
+      }
   }
 }

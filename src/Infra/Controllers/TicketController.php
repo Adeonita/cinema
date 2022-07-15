@@ -7,6 +7,7 @@ use App\Domain\Factories\TicketUsecase\FindTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\FindTicketByUserUsecaseFactory;
 use App\Domain\Factories\TicketUsecase\DeleteTicketByUserUsecaseFactory;
+use App\Domain\Factories\TicketUsecase\UpdateTicketUsecaseFactory;
 
 class TicketController extends Controller
 {
@@ -73,5 +74,18 @@ class TicketController extends Controller
     } catch(\Exception $e) {
       return $this->jsonResponse($e->getMessage(), $e->getCode());
     }
+  }
+
+  public function update()
+  {
+      try {
+          $validator = new TicketValidator();
+          $usecase = UpdateTicketUsecaseFactory::create();
+          $updated = $usecase->execute($validator->validateUpdate());
+
+          return $this->jsonResponse($updated);
+      } catch(\Exception $e) {
+          return $this->jsonResponse($e->getMessage(), $e->getCode());
+      }
   }
 }

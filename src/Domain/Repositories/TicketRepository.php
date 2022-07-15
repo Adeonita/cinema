@@ -27,7 +27,8 @@ class TicketRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE tickets SET price=?, date_time=?, user_id=?, is_student=?, session_id=?, room_id=?, is_three_dimentions=?, deleted_at=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
     public function delete($id): void

@@ -26,7 +26,8 @@ class SpecialEquipamentRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE specialEquipaments SET name=?, room_id=?, quantity=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
     public function delete($id): void 

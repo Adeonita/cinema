@@ -26,7 +26,8 @@ class CineRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE cines SET name=?, shopping_id=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
     public function delete($id): void

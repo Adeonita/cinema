@@ -4,6 +4,7 @@ namespace App\Infra\Controllers;
 use App\Domain\Factories\CineUsecase\CreateCineUsecaseFactory;
 use App\Domain\Factories\CineUsecase\DeleteCineUsecaseFactory;
 use App\Domain\Factories\CineUsecase\FindCineUsecaseFactory;
+use App\Domain\Factories\CineUsecase\UpdateCineUsecaseFactory;
 use App\Infra\Validators\CineValidator;
 
 class CineController extends Controller
@@ -35,6 +36,19 @@ class CineController extends Controller
         try {
             $deleteUsecase = DeleteCineUsecaseFactory::create();
             $deleteUsecase->execute($id);
+        } catch(\Exception $e) {
+            return $this->jsonResponse($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function update()
+    {
+        try {
+            $validator = new CineValidator();
+            $usecase = UpdateCineUsecaseFactory::create();
+            $updated = $usecase->execute($validator->validateUpdate());
+
+            return $this->jsonResponse($updated);
         } catch(\Exception $e) {
             return $this->jsonResponse($e->getMessage(), $e->getCode());
         }

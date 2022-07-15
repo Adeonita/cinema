@@ -8,8 +8,8 @@ use App\Domain\Repositories\SpecialEquipamentRepository;
 
 class CreateSpecialEquipamentUsecase
 {
-  private  RoomRepository $roomRepository;
-  private SpecialEquipamentRepository $specialEquipamentsRepository;
+  private $roomRepository;
+  private $specialEquipamentsRepository;
 
   public function __construct(SpecialEquipamentRepository $specialEquipamentsRepository, RoomRepository $roomRepository)
   {

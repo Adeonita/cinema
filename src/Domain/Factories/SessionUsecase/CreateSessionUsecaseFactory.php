@@ -10,7 +10,7 @@ use App\Domain\Usecases\Session\CreateSessionUsecase;
 
 class CreateSessionUsecaseFactory
 {
-  public function create()
+  public static function create()
   {
     $database = new MySQL();
     $roomRepository = new RoomRepository($database);

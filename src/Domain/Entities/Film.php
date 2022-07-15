@@ -58,7 +58,7 @@ class Film implements BaseEntity
             $filmObj->age_rating,
             $filmObj->main_actor,
             $filmObj->is_three_dimentions ? true : false,
-            $filmObj->category,
+            $filmObj->category
         );
     }
 }

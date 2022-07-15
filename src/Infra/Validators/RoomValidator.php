@@ -28,4 +28,26 @@ class RoomValidator
 
     throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
   }
+
+  public function validateUpdate() {
+    $params = json_decode(file_get_contents("php://input"));
+
+    if(
+      $params->id &&
+      $params->name &&
+      $params->cineId &&
+      $params->capacity &&
+      $params->isThreeDimentions
+    ) {
+        return new Room(
+          $params->id,
+          $params->name,
+          $params->cineId,
+          $params->capacity,
+          $params->isThreeDimentions
+        );
+    }
+            
+    throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
+  }
 }

@@ -42,7 +42,8 @@ class UserRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE users SET first_name=?, last_name=?, email=?, password=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
 }

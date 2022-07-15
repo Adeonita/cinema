@@ -34,4 +34,32 @@ class FilmValidator
 
     throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
   }
+
+  public function validateUpdate() {
+    $params = json_decode(file_get_contents("php://input"));
+
+    if(
+      $params->id &&
+      $params->title &&
+      $params->category &&
+      $params->duration &&
+      $params->director &&
+      $params->ageRating &&
+      $params->mainActor &&
+      $params->isThreeDimentions
+    ) {
+        return new Film(
+          $params->id,
+          $params->title,
+          $params->category,
+          $params->duration,
+          $params->director,
+          $params->ageRating,
+          $params->mainActor,
+          $params->isThreeDimentions
+        );
+    }
+            
+    throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
+  }
 }

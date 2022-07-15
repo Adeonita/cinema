@@ -26,7 +26,8 @@ class FilmRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE films SET title=?,director=?,duration=?,category=?,age_rating=?,main_actor=?,is_three_dimentions=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
     public function delete($id): void

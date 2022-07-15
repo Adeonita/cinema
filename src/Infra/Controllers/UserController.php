@@ -5,6 +5,7 @@ use App\Domain\Factories\UserUsecase\DeleteUserUsecaseFactory;
 use App\Domain\Factories\UserUsecase\FindUserUsecaseFactory;
 use App\Domain\Factories\UserUsecase\CreateUserUsecaseFactory;
 use App\Infra\Validators\UserValidator;
+use App\Domain\Factories\UserUsecase\UpdateUserUsecaseFactory;
 
 class UserController extends Controller
 {
@@ -38,4 +39,16 @@ class UserController extends Controller
         }
     }
 
+    public function update()
+    {
+        try {
+            $validator = new UserValidator();
+            $usecase = UpdateUserUsecaseFactory::create();
+            $updated = $usecase->execute($validator->validateUpdate());
+  
+            return $this->jsonResponse($updated);
+        } catch(\Exception $e) {
+            return $this->jsonResponse($e->getMessage(), $e->getCode());
+        }
+    }
 }

@@ -7,6 +7,7 @@ use App\Domain\Factories\RoomUsecase\FindRoomUsecaseFactory;
 use App\Domain\Factories\RoomUsecase\CreateRoomUsecaseFactory;
 use App\Domain\Factories\RoomUsecase\DeleteRoomUsecaseFactory;
 use App\Domain\Factories\RoomUsecase\FindRoomByCineUsecaseFactory;
+use App\Domain\Factories\RoomUsecase\UpdateRoomUsecaseFactory;
 
 class RoomController extends Controller
 {
@@ -55,5 +56,18 @@ class RoomController extends Controller
     } catch(\Exception $e) {
       return $this->jsonResponse($e->getMessage(), $e->getCode());
     }
+  }
+
+  public function update()
+  {
+      try {
+          $validator = new RoomValidator();
+          $usecase = UpdateRoomUsecaseFactory::create();
+          $updated = $usecase->execute($validator->validateUpdate());
+
+          return $this->jsonResponse($updated);
+      } catch(\Exception $e) {
+          return $this->jsonResponse($e->getMessage(), $e->getCode());
+      }
   }
 }

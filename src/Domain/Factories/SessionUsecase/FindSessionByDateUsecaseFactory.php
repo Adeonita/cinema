@@ -8,7 +8,7 @@ use App\Domain\Usecases\Session\FindSessionByDateUsecase;
 
 class FindSessionByDateUsecaseFactory
 {
-  public function create()
+  public static function create()
   {
     $database = new MYSQL();
     $sessionRepository = new SessionRepository($database);

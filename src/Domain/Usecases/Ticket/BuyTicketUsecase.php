@@ -7,11 +7,10 @@ use App\Domain\Repositories\TicketRepository;
 use App\Domain\Repositories\SessionRepository;
 
 class BuyTicketUsecase 
-//implements CreateUsecasePort
 {
-  private RoomRepository $roomRepository;
-  private SessionRepository $sessionRepository;
-  private TicketRepository $ticketRepository;
+  private $roomRepository;
+  private $sessionRepository;
+  private $ticketRepository;
 
   public function __construct(
     RoomRepository $roomRepository,

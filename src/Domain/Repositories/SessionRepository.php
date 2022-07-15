@@ -27,7 +27,8 @@ class SessionRepository extends Repository
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE sessions SET date_time=?, room_id=?, film_id=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
     public function delete($id): void
@@ -65,6 +66,21 @@ class SessionRepository extends Repository
         if ($count <= 0) {
             throw new \Exception("Session not found", 404);
         }
+
+        return $result;
+    }
+
+    public function getAvailableTicketsCount($filmName, $date) {
+        $query = "
+            SELECT r.id, r.name as roomName, r.capacity as total, r.capacity - count(t.id) as available, s.date_time from rooms r
+            INNER JOIN sessions s ON s.room_id = r.id
+            INNER JOIN tickets t ON t.session_id = s.id
+            INNER JOIN films f ON s.film_id = f.id
+            WHERE f.title like ? AND s.date_time = ?
+            GROUP BY r.id;
+        ";
+
+        $result = $this->database->select($query, ['%'.$filmName.'%', $date]);
 
         return $result;
     }

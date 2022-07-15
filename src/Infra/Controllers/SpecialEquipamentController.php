@@ -5,6 +5,7 @@ use App\Infra\Validators\SpecialEquipamentValidator;
 use App\Domain\Factories\SpecialEquipamentUsecase\FindSpecialEquipamentUsecaseFactory;
 use App\Domain\Factories\SpecialEquipamentUsecase\CreateSpecialEquipamentUsecaseFactory;
 use App\Domain\Factories\SpecialEquipamentUsecase\DeleteSpecialEquipamentUsecaseFactory;
+use App\Domain\Factories\SpecialEquipamentUsecase\UpdateSpecialEquipamentUsecaseFactory;
 
 class SpecialEquipamentController extends Controller
 {
@@ -45,5 +46,18 @@ class SpecialEquipamentController extends Controller
     } catch(\Exception $e) {
       return $this->jsonResponse($e->getMessage(), $e->getCode());
     }
+  }
+
+  public function update()
+  {
+      try {
+          $validator = new SpecialEquipamentValidator();
+          $usecase = UpdateSpecialEquipamentUsecaseFactory::create();
+          $updated = $usecase->execute($validator->validateUpdate());
+
+          return $this->jsonResponse($updated);
+      } catch(\Exception $e) {
+          return $this->jsonResponse($e->getMessage(), $e->getCode());
+      }
   }
 }

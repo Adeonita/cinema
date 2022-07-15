@@ -1,6 +1,7 @@
 <?php
 namespace App\Infra\Validators;
 
+use App\Domain\Entities\Ticket;
 
 class TicketValidator
 {
@@ -20,6 +21,34 @@ class TicketValidator
         'userId' => $userId, 
         'sessionId' => $sessionId
       ];
+    }
+            
+    throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
+  }
+
+  public function validateUpdate() {
+    $params = json_decode(file_get_contents("php://input"));
+    
+    if(
+      $params->id &&
+      $params->dateTime &&
+      $params->userId &&
+      $params->isStudent &&
+      $params->sessionId &&
+      $params->roomId &&
+      $params->isThreeDimentions &&
+      $params->price
+    ) {
+        return new Ticket(
+          $params->id,
+          $params->dateTime,
+          $params->userId,
+          $params->isStudent,
+          $params->sessionId,
+          $params->roomId,
+          $params->isThreeDimentions,
+          $params->price
+        );
     }
             
     throw new \Exception("Validation error: ". count($_POST) .implode(",", $_POST), 422);
