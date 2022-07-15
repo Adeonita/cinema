@@ -16,14 +16,16 @@ class Cine implements BaseEntity{
         $this->shoppingId = $shoppingId;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->name, 
             $this->shoppingId
         ];
     }
 
-    public static function fromPersistentObject($cineObj): BaseEntity {
+    public static function fromPersistentObject($cineObj): BaseEntity
+    {
         return new Cine(
             $cineObj->id,
             $cineObj->name, 

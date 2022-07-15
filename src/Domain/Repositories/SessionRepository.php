@@ -17,22 +17,26 @@ class SessionRepository extends Repository
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
             "INSERT INTO sessions (date_time, room_id, film_id) VALUES(?,?,?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
+    public function update(BaseEntity $entity): bool
+    {
         return false;
     }
 
-    public function delete($id): void {
+    public function delete($id): void
+    {
         $this->database->delete("DELETE FROM sessions WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM sessions WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {
@@ -54,7 +58,6 @@ class SessionRepository extends Repository
         INNER JOIN rooms on rooms.id = sessions.room_id
         WHERE date_time LIKE ?";
 
-        // $result = $this->database->select("SELECT * FROM sessions where date_time like ?", ["%$date%"]);
         $result = $this->database->select($query, ["%$date%"]);
 
         $count = count($result);
@@ -64,6 +67,5 @@ class SessionRepository extends Repository
         }
 
         return $result;
-        // return Session::fromArray($result);
     }
 }

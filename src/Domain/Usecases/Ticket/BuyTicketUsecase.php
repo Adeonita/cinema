@@ -22,6 +22,7 @@ class BuyTicketUsecase
     $this->ticketRepository = $ticketRepository;
     $this->sessionRepository = $sessionRepository;
   }
+  
   public function execute($isStudent, $userId, $sessionId)
   {
     $session = $this->sessionRepository->find($sessionId);

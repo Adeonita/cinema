@@ -5,7 +5,6 @@ use App\Domain\Ports\Entities\BaseEntity;
 
 class Session implements BaseEntity
 {
-    
     public $id;
     public $dateTime;
     public $roomId;

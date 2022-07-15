@@ -6,9 +6,10 @@ use App\Domain\Factories\UserUsecase\FindUserUsecaseFactory;
 use App\Domain\Factories\UserUsecase\CreateUserUsecaseFactory;
 use App\Infra\Validators\UserValidator;
 
-class UserController extends Controller{
-
-    public function create() {
+class UserController extends Controller
+{
+    public function create()
+    {
         $validator = new UserValidator();
         $userEntity = $validator->validateCreate();
         $saveUsecase = CreateUserUsecaseFactory::create();

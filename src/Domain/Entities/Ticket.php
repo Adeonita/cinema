@@ -29,7 +29,8 @@ class Ticket implements BaseEntity{
         $this->deletedAt = null;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->price,
             $this->dateTime,
@@ -42,7 +43,8 @@ class Ticket implements BaseEntity{
         ];
     }
 
-    public static function fromPersistentObject($ticketObj): BaseEntity {
+    public static function fromPersistentObject($ticketObj): BaseEntity
+    {
         return new Ticket(
             $ticketObj->id,
             $ticketObj->date_time,
@@ -109,5 +111,4 @@ class Ticket implements BaseEntity{
 
         return $price;
     }
-
 }

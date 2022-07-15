@@ -3,8 +3,8 @@ namespace App\Infra\Database;
 
 use App\Domain\Ports\Database\Database;
 
-class MySQL implements Database {
-
+class MySQL implements Database
+{
     private $db_name;
     private $db_password;
     private $db_user;

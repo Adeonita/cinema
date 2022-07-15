@@ -8,7 +8,6 @@ use App\Domain\Ports\Entities\BaseEntity;
 
 class SpecialEquipamentRepository extends Repository
 {
-
     private $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
@@ -17,22 +16,26 @@ class SpecialEquipamentRepository extends Repository
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
             "INSERT INTO specialEquipaments (name, room_id) VALUES(?,?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
+    public function update(BaseEntity $entity): bool
+    {
         return false;
     }
 
-    public function delete($id): void {
+    public function delete($id): void 
+    {
         $this->database->delete("DELETE FROM specialEquipaments WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM specialEquipaments WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {

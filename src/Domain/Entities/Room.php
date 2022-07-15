@@ -25,7 +25,8 @@ class Room implements BaseEntity {
         $this->cineId = $cineId;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->name,
             $this->capacity,
@@ -36,8 +37,8 @@ class Room implements BaseEntity {
         ];
     }
 
-    public static function fromPersistentObject($roomObj): BaseEntity {
-        
+    public static function fromPersistentObject($roomObj): BaseEntity
+    {
         $price = number_format($roomObj->price, 2);
 
         return new Room(
@@ -50,11 +51,14 @@ class Room implements BaseEntity {
         );
     }
 
-    public static function fromArray($results) {
+    public static function fromArray($results)
+    {
         $rooms = [];
+        
         foreach($results as $room) {
             $rooms[] = Room::fromPersistentObject($room);
         }
+
         return $rooms;
     }
 }

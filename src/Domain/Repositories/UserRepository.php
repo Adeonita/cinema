@@ -8,7 +8,6 @@ use App\Domain\Entities\User;
 
 class UserRepository extends Repository
 {
-
     private $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.

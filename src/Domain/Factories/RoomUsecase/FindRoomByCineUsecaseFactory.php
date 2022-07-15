@@ -8,7 +8,6 @@ use App\Domain\Usecases\Room\FindRoomByCineUsecase;
 
 class FindRoomByCineUsecaseFactory
 {
-
   public static function create()
   {
     $database = new MySQL();

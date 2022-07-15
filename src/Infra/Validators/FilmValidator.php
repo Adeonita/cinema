@@ -3,8 +3,8 @@ namespace App\Infra\Validators;
 
 use App\Domain\Entities\Film;
 
-class FilmValidator {
-
+class FilmValidator
+{
   public function validateCreate()
   {
     $title = $_POST['title'];

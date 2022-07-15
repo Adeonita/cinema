@@ -3,8 +3,8 @@ namespace App\Domain\Entities;
 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class Film implements BaseEntity{
-
+class Film implements BaseEntity
+{
     public  $id;
     public $title;
     public $duration;

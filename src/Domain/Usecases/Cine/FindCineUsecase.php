@@ -5,7 +5,8 @@ use App\Domain\Entities\Cine;
 use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Usecases\FindUsecasePort;
 
-class FindCineUsecase implements FindUsecasePort {
+class FindCineUsecase implements FindUsecasePort
+{
 
     private $repository;
 

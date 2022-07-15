@@ -9,7 +9,6 @@ use App\Domain\Ports\Entities\BaseEntity;
 
 class TicketRepository extends Repository
 {
-
     protected $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
@@ -18,22 +17,26 @@ class TicketRepository extends Repository
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
             "INSERT INTO tickets (price, date_time, user_id, is_student, session_id, room_id, is_three_dimentions, deleted_at) VALUES(?,?,?,?,?,?,?,?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
+    public function update(BaseEntity $entity): bool
+    {
         return false;
     }
 
-    public function delete($id): void {
+    public function delete($id): void
+    {
         $this->database->delete("DELETE FROM tickets WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM tickets WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {

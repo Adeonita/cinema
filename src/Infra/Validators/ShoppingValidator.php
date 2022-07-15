@@ -3,9 +3,11 @@ namespace App\Infra\Validators;
 
 use App\Domain\Entities\Shopping;
 
-class ShoppingValidator {
+class ShoppingValidator
+{
 
-    public function validateCreate() {
+    public function validateCreate()
+    {
         $name = $_POST['name'];
 
         if($name) {

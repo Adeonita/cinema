@@ -16,22 +16,26 @@ class RoomRepository extends Repository
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
             "INSERT INTO rooms (name, capacity, price, price_weekend, is_three_dimentions, cine_id) VALUES(?,?,?,?,?,?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
+    public function update(BaseEntity $entity): bool
+    {
         return false;
     }
 
-    public function delete($id): void {
+    public function delete($id): void
+    {
         $this->database->delete("DELETE FROM rooms WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM rooms WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {

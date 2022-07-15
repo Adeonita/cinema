@@ -6,9 +6,10 @@ use App\Domain\Factories\CineUsecase\DeleteCineUsecaseFactory;
 use App\Domain\Factories\CineUsecase\FindCineUsecaseFactory;
 use App\Infra\Validators\CineValidator;
 
-class CineController extends Controller {
-
-    public function create() {
+class CineController extends Controller
+{
+    public function create()
+    {
         $validator = new CineValidator();
         $cineEntity = $validator->validateCreate();
         $usecase = CreateCineUsecaseFactory::create();
@@ -17,7 +18,8 @@ class CineController extends Controller {
         return $this->jsonResponse($createdCine, 201); # Se quiser esconder alguma propriedade do usuário pode criar um método lá no entity toJsonResponse e returna um array
     }
 
-    public function find($id) {
+    public function find($id)
+    {
         try {
             $findUsecase = FindCineUsecaseFactory::create();
             $cineEntity = $findUsecase->execute($id);
@@ -28,7 +30,8 @@ class CineController extends Controller {
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
             $deleteUsecase = DeleteCineUsecaseFactory::create();
             $deleteUsecase->execute($id);

@@ -6,7 +6,8 @@ use App\Domain\Ports\Entities\BaseEntity;
 use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Usecases\CreateUsecasePort;
 
-class CreateCineUsecase implements CreateUsecasePort {
+class CreateCineUsecase implements CreateUsecasePort
+{
 
     private $repository;
 

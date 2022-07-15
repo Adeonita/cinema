@@ -4,7 +4,8 @@ namespace App\Infra\Validators;
 
 class TicketValidator
 {
-  public function validateCreate() {
+  public function validateCreate()
+  {
     $hasIsStudent = isset($_POST['isStudent']);
     $userId = $_POST['userId'];
     $sessionId = $_POST['sessionId'];

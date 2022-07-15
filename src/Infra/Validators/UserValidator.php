@@ -3,9 +3,11 @@ namespace App\Infra\Validators;
 
 use App\Domain\Entities\User;
 
-class UserValidator {
+class UserValidator
+{
 
-    public function validateCreate() {
+    public function validateCreate()
+    {
         $firstName = $_POST['firstName'];
         $lastName = $_POST['lastName'];
         $email = $_POST['email'];

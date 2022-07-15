@@ -17,22 +17,26 @@ class ShoppingRepository extends Repository
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
             "INSERT INTO shoppings (name) VALUES(?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
+    public function update(BaseEntity $entity): bool
+    {
         return false;
     }
 
-    public function delete($id): void {
+    public function delete($id): void
+    {
         $this->database->delete("DELETE FROM shoppings WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM shoppings WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {

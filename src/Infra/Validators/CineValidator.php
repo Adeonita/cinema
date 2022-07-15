@@ -3,9 +3,11 @@ namespace App\Infra\Validators;
 
 use App\Domain\Entities\Cine;
 
-class CineValidator {
+class CineValidator
+{
 
-    public function validateCreate() {
+    public function validateCreate()
+    {
         $name = $_POST['name'];
         $shoppingId = $_POST['shoppingId'];
 

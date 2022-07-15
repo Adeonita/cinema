@@ -3,8 +3,8 @@ namespace App\Domain\Entities;
 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class SpecialEquipament implements BaseEntity {
-
+class SpecialEquipament implements BaseEntity
+{
     public $id;
     public $name;
     public $roomId;
@@ -18,7 +18,8 @@ class SpecialEquipament implements BaseEntity {
         $this->quantity = $quantity;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->name,
             $this->roomId,
@@ -26,7 +27,8 @@ class SpecialEquipament implements BaseEntity {
         ];
     }
 
-    public static function fromPersistentObject($spcEquipObj): BaseEntity {
+    public static function fromPersistentObject($spcEquipObj): BaseEntity
+    {
         return new SpecialEquipament(
             $spcEquipObj->id,
             $spcEquipObj->name,
@@ -34,5 +36,4 @@ class SpecialEquipament implements BaseEntity {
             $spcEquipObj->quantity
         );
     }
-
 }

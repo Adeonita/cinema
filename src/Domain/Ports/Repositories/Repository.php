@@ -5,7 +5,6 @@ use App\Domain\Ports\Entities\BaseEntity;
 
 abstract class Repository
 {
-
     abstract public function create(BaseEntity $entity): int;
     abstract public function update(BaseEntity $entity): bool;
     abstract public function delete($id): void;

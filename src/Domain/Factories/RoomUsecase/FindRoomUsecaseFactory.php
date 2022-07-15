@@ -9,7 +9,6 @@ use App\Domain\Repositories\RoomRepository;
 
 class FindRoomUsecaseFactory
 {
-
   public static function create()
   {
     $database = new MySQL();
