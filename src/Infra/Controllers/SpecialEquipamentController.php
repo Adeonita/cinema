@@ -2,6 +2,7 @@
 namespace App\Infra\Controllers;
 
 use App\Infra\Validators\SpecialEquipamentValidator;
+use App\Domain\Factories\SpecialEquipamentUsecase\FindSpecialEquipamentUsecaseFactory;
 use App\Domain\Factories\SpecialEquipamentUsecase\CreateSpecialEquipamentUsecaseFactory;
 
 class SpecialEquipamentController extends Controller
@@ -21,5 +22,17 @@ class SpecialEquipamentController extends Controller
     $createdShopping = $usecase->execute($roomId, $name, $quantity);
     
     return $this->jsonResponse($createdShopping, 201);
+  }
+
+  public function find($equipamentId)
+  {
+    try {
+      $usecase = FindSpecialEquipamentUsecaseFactory::create();
+      $filmEntity = $usecase->execute($equipamentId);
+      
+      return $this->jsonResponse($filmEntity);
+    } catch (\Exception $e) {
+      $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
   }
 }

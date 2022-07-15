@@ -50,6 +50,7 @@ $router->delete('/tickets/(\d+)/user/(\d+)', TicketController::class.'@deleteByU
 $router->delete('/tickets/(\d+)', TicketController::class.'@delete');
 
 $router->post('/specialEquipaments', SpecialEquipamentController::class.'@create');
+$router->get('/specialEquipaments/(\d+)', SpecialEquipamentController::class.'@find');
 
 try {
   $router->run();
