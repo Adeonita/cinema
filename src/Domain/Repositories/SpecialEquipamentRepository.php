@@ -19,7 +19,7 @@ class SpecialEquipamentRepository extends Repository
     public function create(BaseEntity $entity): int
     {
         return $this->database->create(
-            "INSERT INTO specialEquipaments (name, room_id) VALUES(?,?)",
+            "INSERT INTO specialEquipaments (name, room_id, quantity) VALUES(?,?,?)",
             $entity->toPersistentArray()
         );
     }
