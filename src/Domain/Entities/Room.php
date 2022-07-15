@@ -8,19 +8,13 @@ class Room implements BaseEntity {
     public $id;
     public $name;
     public $capacity;
-    public $price;
-
-    public $priceWeekend; //price + 30% 
-    public $isThreeDimentions;
     public $cineId;
 
-    public function __construct($id = null, $name, $capacity, $price, $isThreeDimentions, $cineId)
+    public function __construct($id = null, $name, $capacity, $isThreeDimentions, $cineId)
     {
         $this->id = $id;
         $this->name = $name;
         $this->capacity = $capacity;
-        $this->price = $price;
-        $this->priceWeekend = $price + ($price * 0.30);
         $this->isThreeDimentions = $isThreeDimentions;
         $this->cineId = $cineId;
     }
@@ -29,8 +23,6 @@ class Room implements BaseEntity {
         return [
             $this->name,
             $this->capacity,
-            $this->price,
-            $this->priceWeekend,
             $this->isThreeDimentions,
             $this->cineId
         ];
@@ -44,7 +36,6 @@ class Room implements BaseEntity {
             $roomObj->id,
             $roomObj->name,
             $roomObj->capacity,
-            $price,
             $roomObj->is_three_dimentions ? true : false,
             $roomObj->cine_id
         );

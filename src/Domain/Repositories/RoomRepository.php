@@ -18,7 +18,7 @@ class RoomRepository extends Repository
 
     public function create(BaseEntity $entity): int {
         return $this->database->create(
-            "INSERT INTO rooms (name, capacity, price, price_weekend, is_three_dimentions, cine_id) VALUES(?,?,?,?,?,?)",
+            "INSERT INTO rooms (name, capacity, is_three_dimentions, cine_id) VALUES(?,?,?,?)",
             $entity->toPersistentArray()
         );
     }
