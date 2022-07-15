@@ -8,6 +8,7 @@ use App\Infra\Controllers\RoomController;
 use App\Infra\Controllers\TicketController;
 use App\Infra\Controllers\SessionController;
 use App\Infra\Controllers\ShoppingController;
+use App\Infra\Controllers\SpecialEquipamentController;
 
 $_POST = json_decode(file_get_contents('php://input'), true);
 
@@ -47,6 +48,8 @@ $router->get('/tickets/(\d+)', TicketController::class.'@find');
 $router->get('/tickets/(\d+)/user/(\d+)', TicketController::class.'@findByUser');
 $router->delete('/tickets/(\d+)/user/(\d+)', TicketController::class.'@deleteByUser');
 $router->delete('/tickets/(\d+)', TicketController::class.'@delete');
+
+$router->post('/specialEquipaments', SpecialEquipamentController::class.'@create');
 
 try {
   $router->run();
