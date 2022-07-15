@@ -10,18 +10,17 @@ class RoomValidator
     $name = $_POST['name'];
     $cineId = $_POST['cineId'];
     $capacity = $_POST['capacity'];
-    $price = $_POST['price'];
     $hasIsThreeDimentions = isset($_POST['isThreeDimentions']);
     $isThreeDimentions = (int) $_POST['isThreeDimentions'];
 
-    $requiredFields = $name && $cineId && $capacity && $price && $hasIsThreeDimentions;
+    $requiredFields = $name && $cineId && $capacity && $hasIsThreeDimentions;
+
 
     if ($requiredFields) {
       return new Room(
         null,
         $name,
         $capacity,
-        $price,
         $isThreeDimentions,
         $cineId
       );
