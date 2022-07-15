@@ -4,6 +4,7 @@ namespace App\Infra\Controllers;
 use App\Infra\Validators\SpecialEquipamentValidator;
 use App\Domain\Factories\SpecialEquipamentUsecase\FindSpecialEquipamentUsecaseFactory;
 use App\Domain\Factories\SpecialEquipamentUsecase\CreateSpecialEquipamentUsecaseFactory;
+use App\Domain\Factories\SpecialEquipamentUsecase\DeleteSpecialEquipamentUsecaseFactory;
 
 class SpecialEquipamentController extends Controller
 {
@@ -33,6 +34,16 @@ class SpecialEquipamentController extends Controller
       return $this->jsonResponse($filmEntity);
     } catch (\Exception $e) {
       $this->jsonResponse($e->getMessage(), $e->getCode());
+    }
+  }
+
+  public function delete($equipamentId)
+  {
+    try {
+      $deleteUsecase = DeleteSpecialEquipamentUsecaseFactory::create();
+      $deleteUsecase->execute($equipamentId);
+    } catch(\Exception $e) {
+      return $this->jsonResponse($e->getMessage(), $e->getCode());
     }
   }
 }
