@@ -1,3 +1,5 @@
+<p align="center"><a href="https://localhost" target="_blank"><img src="./images/readmeIcon.png" width="200"></a></p>
+
 # Cinema Uneb
 
 ## Configurações
@@ -27,3 +29,6 @@ Copiar o arquivo sample.env tornando-o apenas .env e aplicando os valores para a
 -	Etapa 3: Criar o Usecase responsável por realizar as operações de negócio e usando o repositório para aplicar no banco.
 -	Etapa 4: Criar um factory para o Usecase, dessa forma não precisará se precupar sempre com as dependências da classe.
 -	Etapa 5: Criar um controller e adicionar uma rota ao router registry para que a funcionalidade fique disponível.
+
+## Diagrama de dados 
+<p align="center"><img src="./images/DiagramaDeDados.png"></p>
