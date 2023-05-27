@@ -4,8 +4,8 @@ namespace App\Domain\Usecases\User;
 use App\Domain\Ports\Usecases\DeleteUsecasePort;
 use App\Domain\Ports\Repositories\Repository;
 
-class DeleteUserUsecase implements DeleteUsecasePort{
-    
+class DeleteUserUsecase implements DeleteUsecasePort
+{   
     private $repository;
 
     public function __construct(Repository $repository)

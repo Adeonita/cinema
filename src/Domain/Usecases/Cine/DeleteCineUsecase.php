@@ -4,7 +4,8 @@ namespace App\Domain\Usecases\Cine;
 use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Usecases\DeleteUsecasePort;
 
-class DeleteCineUsecase implements DeleteUsecasePort {
+class DeleteCineUsecase implements DeleteUsecasePort
+{
 
     private $repository;
 

@@ -8,43 +8,48 @@ class Room implements BaseEntity {
     public $id;
     public $name;
     public $capacity;
-    public $priceCommonDay;
-    public $priceWeekend;
-    public $isThreeDimentions;
     public $cineId;
 
-    public function __construct($id = null, $name, $capacity, $priceCommonDay, $priceWeekend, $isThreeDimentions, $cineId)
+    public function __construct($id = null, $name, $capacity, $isThreeDimentions, $cineId)
     {
         $this->id = $id;
         $this->name = $name;
         $this->capacity = $capacity;
-        $this->priceCommonDay = $priceCommonDay;
-        $this->priceWeekend = $priceWeekend;
         $this->isThreeDimentions = $isThreeDimentions;
         $this->cineId = $cineId;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->name,
             $this->capacity,
-            $this->priceCommonDay,
-            $this->priceWeekend,
             $this->isThreeDimentions,
             $this->cineId
         ];
     }
 
-    public static function fromPersistentObject($roomObj): BaseEntity {
+    public static function fromPersistentObject($roomObj): BaseEntity
+    {
+        $price = number_format($roomObj->price, 2);
+
         return new Room(
             $roomObj->id,
             $roomObj->name,
             $roomObj->capacity,
-            $roomObj->price_common_day,
-            $roomObj->price_weekend,
-            $roomObj->is_three_dimentions,
+            $roomObj->is_three_dimentions ? true : false,
             $roomObj->cine_id
         );
     }
 
+    public static function fromArray($results)
+    {
+        $rooms = [];
+        
+        foreach($results as $room) {
+            $rooms[] = Room::fromPersistentObject($room);
+        }
+
+        return $rooms;
+    }
 }

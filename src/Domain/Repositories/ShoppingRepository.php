@@ -6,7 +6,8 @@ use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Database\Database; 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class ShoppingRepository implements Repository {
+class ShoppingRepository extends Repository
+{
 
     private $database;
 
@@ -16,22 +17,27 @@ class ShoppingRepository implements Repository {
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
             "INSERT INTO shoppings (name) VALUES(?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
-        return false;
+    public function update(BaseEntity $entity): bool
+    {
+        return $this->database->update("UPDATE shoppings SET name=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
-    public function delete($id): void {
+    public function delete($id): void
+    {
         $this->database->delete("DELETE FROM shoppings WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM shoppings WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {

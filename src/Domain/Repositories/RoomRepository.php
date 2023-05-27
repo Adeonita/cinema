@@ -6,31 +6,37 @@ use App\Domain\Ports\Repositories\Repository;
 use App\Domain\Ports\Database\Database; 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class CineRepository implements Repository {
+class RoomRepository extends Repository
+{
 
-    private $database;
+    protected $database;
 
     public function __construct(Database $database)
     {
         $this->database = $database;
     }
 
-    public function create(BaseEntity $entity): int {
+    public function create(BaseEntity $entity): int
+    {
         return $this->database->create(
-            "INSERT INTO rooms (id, name, capacity, priceCommonDay, priceWeekend, isThreeDimentions, cine_id) VALUES(?,?,?,?,?,?,?)",
+            "INSERT INTO rooms (name, capacity, is_three_dimentions, cine_id) VALUES(?,?,?,?)",
             $entity->toPersistentArray()
         );
     }
 
-    public function update(BaseEntity $entity): bool {
-        return false;
+    public function update(BaseEntity $entity): bool
+    {
+        return $this->database->update("UPDATE rooms SET name=?, capacity=?, is_three_dimentions=?, cine_id=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
-    public function delete($id): void {
+    public function delete($id): void
+    {
         $this->database->delete("DELETE FROM rooms WHERE id = ?", [$id]);
     }
 
-    public function find($id): BaseEntity {
+    public function find($id): BaseEntity
+    {
         $result = $this->database->select("SELECT * FROM rooms WHERE id = ?", [$id]);
         $count = count($result);
         if( $count <= 0 ) {

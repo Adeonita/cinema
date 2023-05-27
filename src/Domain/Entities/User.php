@@ -3,8 +3,8 @@ namespace App\Domain\Entities;
 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class User implements BaseEntity {
-
+class User implements BaseEntity
+{
     public $id;
     public $firstName;
     public $lastName;
@@ -22,7 +22,8 @@ class User implements BaseEntity {
         $this->created_at = $created_at;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->firstName, 
             $this->lastName, 
@@ -31,7 +32,8 @@ class User implements BaseEntity {
         ];
     }
 
-    public static function fromPersistentObject($userObj): BaseEntity {
+    public static function fromPersistentObject($userObj): BaseEntity
+    {
         return new User(
             $userObj->id,
             $userObj->first_name, 

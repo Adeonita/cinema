@@ -5,10 +5,13 @@ use App\Domain\Factories\ShoppingUsecase\CreateShoppingUsecaseFactory;
 use App\Domain\Factories\ShoppingUsecase\DeleteShoppingUsecaseFactory;
 use App\Domain\Factories\ShoppingUsecase\FindShoppingUsecaseFactory;
 use App\Infra\Validators\ShoppingValidator;
+use App\Domain\Factories\ShoppingUsecase\UpdateShoppingUsecaseFactory;
 
-class ShoppingController extends Controller {
+class ShoppingController extends Controller
+{
 
-    public function create() {
+    public function create()
+    {
         $validator = new ShoppingValidator();
         $shoppingEntity = $validator->validateCreate();
         $usecase = CreateShoppingUsecaseFactory::create();
@@ -17,7 +20,8 @@ class ShoppingController extends Controller {
         return $this->jsonResponse($createdShopping, 201); # Se quiser esconder alguma propriedade do usuário pode criar um método lá no entity toJsonResponse e returna um array
     }
 
-    public function find($id) {
+    public function find($id)
+    {
         try {
             $findUsecase = FindShoppingUsecaseFactory::create();
             $shoppingEntity = $findUsecase->execute($id);
@@ -28,10 +32,24 @@ class ShoppingController extends Controller {
         }
     }
 
-    public function delete($id) {
+    public function delete($id)
+    {
         try {
             $deleteUsecase = DeleteShoppingUsecaseFactory::create();
             $deleteUsecase->execute($id);
+        } catch(\Exception $e) {
+            return $this->jsonResponse($e->getMessage(), $e->getCode());
+        }
+    }
+
+    public function update()
+    {
+        try {
+            $validator = new ShoppingValidator();
+            $usecase = UpdateShoppingUsecaseFactory::create();
+            $updated = $usecase->execute($validator->validateUpdate());
+  
+            return $this->jsonResponse($updated);
         } catch(\Exception $e) {
             return $this->jsonResponse($e->getMessage(), $e->getCode());
         }

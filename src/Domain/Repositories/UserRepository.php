@@ -6,8 +6,8 @@ use App\Domain\Ports\Database\Database;
 use App\Domain\Ports\Entities\BaseEntity;
 use App\Domain\Entities\User;
 
-class UserRepository implements Repository {
-
+class UserRepository extends Repository
+{
     private $database;
 
     # Recebe uma interface do banco, não importando qual seja a implementação.
@@ -42,7 +42,8 @@ class UserRepository implements Repository {
 
     public function update(BaseEntity $entity): bool
     {
-        return false;
+        return $this->database->update("UPDATE users SET first_name=?, last_name=?, email=?, password=? WHERE id=?",
+                array_merge($entity->toPersistentArray(), [$entity->id]));
     }
 
 }

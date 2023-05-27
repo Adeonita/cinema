@@ -3,8 +3,8 @@ namespace App\Domain\Entities;
 
 use App\Domain\Ports\Entities\BaseEntity;
 
-class Shopping implements BaseEntity{
-
+class Shopping implements BaseEntity
+{
     public $id;
     public $name;
 
@@ -14,13 +14,15 @@ class Shopping implements BaseEntity{
         $this->name = $name;
     }
 
-    public function toPersistentArray(): array {
+    public function toPersistentArray(): array
+    {
         return [
             $this->name,
         ];
     }
 
-    public static function fromPersistentObject($shoppingObj): BaseEntity {
+    public static function fromPersistentObject($shoppingObj): BaseEntity
+    {
         return new Shopping(
             $shoppingObj->id,
             $shoppingObj->name
